@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.figureshop.dto.ProductDto;
+import com.example.figureshop.dto.response.ProductDtoResponse;
 import com.example.figureshop.entity.Product;
 import com.example.figureshop.mapper.ProductMapper;
 import com.example.figureshop.repository.ProductRepository;
@@ -20,7 +20,7 @@ public class ProductServiceImpl implements IProductService{
 
 
 	@Override
-	public List<ProductDto> getAllProducts() {
+	public List<ProductDtoResponse> getAllProducts() {
 		List<Product> products = productRepository.findAll();
 		return products.stream().map(ProductMapper::toDto).collect(Collectors.toList());
 	}

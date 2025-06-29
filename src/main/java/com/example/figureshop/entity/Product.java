@@ -47,6 +47,10 @@ public class Product {
 	private LocalDateTime updatedAt;
 	
 	
+	
+	public Product() {
+		super();
+	}
 	public Long getProductId() {
 		return productId;
 	}

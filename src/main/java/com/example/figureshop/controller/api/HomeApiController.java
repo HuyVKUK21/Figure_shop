@@ -8,21 +8,21 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.figureshop.dto.ProductDto;
+import com.example.figureshop.dto.response.ProductDtoResponse;
 import com.example.figureshop.response.ApiResponse;
 import com.example.figureshop.service.IProductService;
 
 @RestController
-@RequestMapping("api/product")
+@RequestMapping("/api")
 public class HomeApiController {
 
 	@Autowired
 	private IProductService productService;
 	
-	@GetMapping
-	public ResponseEntity<ApiResponse<List<ProductDto>>> getAll() {
-		List<ProductDto> product = productService.getAllProducts();
-		ApiResponse<List<ProductDto>> response = ApiResponse.success(product);
+	@GetMapping("/productAll")
+	public ResponseEntity<ApiResponse<List<ProductDtoResponse>>> getAll() {
+		List<ProductDtoResponse> product = productService.getAllProducts();
+		ApiResponse<List<ProductDtoResponse>> response = ApiResponse.success(product);
 		return ResponseEntity.ok(response);
 	}
 }
