@@ -1,4 +1,4 @@
-package com.example.figureshop.dto;
+package com.example.figureshop.dto.response;
 
 import java.time.LocalDateTime;
 
@@ -12,7 +12,7 @@ import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
 
 
-public class ProductDto {
+public class ProductDtoResponse {
 
 	private Long productId;
 	private Long categoryId;
@@ -26,8 +26,6 @@ public class ProductDto {
 	private int productPrice;
 	private String productPriceLog;
 	private int productStatus;
-	private LocalDateTime createdAt;
-	private LocalDateTime updatedAt;
 	
 	
 	public Long getProductId() {
@@ -102,17 +100,6 @@ public class ProductDto {
 	public void setProductStatus(int productStatus) {
 		this.productStatus = productStatus;
 	}
-	public LocalDateTime getCreatedAt() {
-		return createdAt;
-	}
-	public void setCreatedAt(LocalDateTime createdAt) {
-		this.createdAt = createdAt;
-	}
-	public LocalDateTime getUpdatedAt() {
-		return updatedAt;
-	}
-	public void setUpdatedAt(LocalDateTime updatedAt) {
-		this.updatedAt = updatedAt;
-	}
+
 	
 }
