@@ -20,6 +20,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import com.example.figureshop.service.impl.UserService;
 
 import java.io.IOException;
+import java.util.List;
 
 @Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
@@ -33,8 +34,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
-		
-	
+
 		try {
 			String jwt = getJwtFromRequest(request);
 
