@@ -10,7 +10,7 @@ public class LoginController {
 
 	@GetMapping("/login")
 	public String homePage() {
-        return "web/home";  
+        return "web/login";  
     }
 	
 }
