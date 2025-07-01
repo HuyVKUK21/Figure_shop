@@ -2,8 +2,12 @@ package com.example.figureshop.entity;
 
 import java.time.LocalDateTime;
 
+import com.example.figureshop.util.RoleEnum;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -28,7 +32,8 @@ public class User {
 	private int userPhone;
 	@Column(name = "user_address")
 	private String userAddress;
-	private String role;
+	@Enumerated(EnumType.STRING)
+	private RoleEnum role;
 	@Column(name = "created_at")
 	private LocalDateTime createdAt;
 	@Column(name = "updated_at")
@@ -72,11 +77,11 @@ public class User {
 	public void setUserAddress(String userAddress) {
 		this.userAddress = userAddress;
 	}
-	public String getRole() {
+	public RoleEnum getRole() {
 		return role;
 	}
-	public void setRole(String role) {
-		this.role = role;
+	public void setRole(RoleEnum user) {
+		this.role = user;
 	}
 	public LocalDateTime getCreatedAt() {
 		return createdAt;

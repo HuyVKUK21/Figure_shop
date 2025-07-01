@@ -1,6 +1,6 @@
 package com.example.figureshop.dto.request;
 
-public class LoginRequest {
+public class LoginDtoRequest {
 
 	private String username;
 	private String password;

@@ -1,9 +1,9 @@
 package com.example.figureshop.dto.response;
 
-public class LoginResponse {
+public class LoginDtoResponse {
 	private String token;
 
-	public LoginResponse(String token) {
+	public LoginDtoResponse(String token) {
 		super();
 		this.token = token;
 	}
