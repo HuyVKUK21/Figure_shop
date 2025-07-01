@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.figureshop.dto.request.LoginRequest;
-import com.example.figureshop.dto.response.LoginResponse;
+import com.example.figureshop.dto.request.LoginDtoRequest;
+import com.example.figureshop.dto.response.LoginDtoResponse;
 import com.example.figureshop.security.CustomUserDetails;
 import com.example.figureshop.security.JwtTokenProvider;
 
@@ -29,14 +29,14 @@ public class LoginApiController {
 	private JwtTokenProvider tokenProvider;
 
 	@PostMapping("/login")
-	public LoginResponse authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
+	public LoginDtoResponse authenticateUser(@Valid @RequestBody LoginDtoRequest loginRequest) {
 
 		Authentication authentication = authenticationManager.authenticate(
 				new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), 
 						loginRequest.getPassword()));
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 		String jwt = tokenProvider.generateToken((CustomUserDetails) authentication.getPrincipal());
-		return new LoginResponse(jwt);
+		return new LoginDtoResponse(jwt);
 	}
 	
 	

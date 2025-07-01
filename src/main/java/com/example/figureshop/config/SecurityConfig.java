@@ -1,6 +1,5 @@
 package com.example.figureshop.config;
 
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -26,49 +25,33 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 @EnableMethodSecurity
 public class SecurityConfig {
 
-    private final UserService userService;
-    private final JwtAuthenticationFilter jwtAuthenticationFilter;
+	private final UserService userService;
+	private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
-    public SecurityConfig(UserService userService, JwtAuthenticationFilter jwtAuthenticationFilter) {
-        this.userService = userService;
-        this.jwtAuthenticationFilter = jwtAuthenticationFilter;
-    }
-
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
-
-    @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
-        return config.getAuthenticationManager();
-    }
-
-   
-    @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http
-            .csrf(csrf -> csrf.disable())
-            .cors(cors -> {})
-            .authorizeHttpRequests(auth -> auth
-                .requestMatchers(
-                    "/login","/api/login", "/api/register",
-                    "/WEB-INF/**", "/template/**", "/resources/**", "/static/**", "/css/**", "/js/**"
-                ).permitAll()
-                .anyRequest().authenticated()
-            )
-            .formLogin(form -> form
-                .loginPage("/login")
-                .defaultSuccessUrl("/home", true)
-                .failureUrl("/login?error=true")
-                .permitAll()
-            )
-            .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
-
-        return http.build();
-    }
+	public SecurityConfig(UserService userService, JwtAuthenticationFilter jwtAuthenticationFilter) {
+		this.userService = userService;
+		this.jwtAuthenticationFilter = jwtAuthenticationFilter;
+	}
 
 
+	@Bean
+	public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
+		return config.getAuthenticationManager();
+	}
 
+	@Bean
+	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+		http.csrf(csrf -> csrf.disable()).cors(cors -> {
+		}).authorizeHttpRequests(
+				auth -> auth
+						.requestMatchers("/login", "/api/login", "/api/register", "/WEB-INF/**", "/template/**",
+								"/resources/**", "/static/**", "/css/**", "/js/**")
+						.permitAll().anyRequest().authenticated())
+				.formLogin(form -> form.loginPage("/login").defaultSuccessUrl("/home", true)
+						.failureUrl("/login?error=true").permitAll())
+				.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+
+		return http.build();
+	}
 
 }
