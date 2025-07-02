@@ -44,7 +44,7 @@ public class SecurityConfig {
 		http.csrf(csrf -> csrf.disable()).cors(cors -> {
 		}).authorizeHttpRequests(
 				auth -> auth
-						.requestMatchers("/login", "/api/login", "/api/register", "/WEB-INF/**", "/template/**",
+						.requestMatchers("/login", "/api/login", "/api/register", "/register", "/forgot-password", "/WEB-INF/**", "/template/**",
 								"/resources/**", "/static/**", "/css/**", "/js/**")
 						.permitAll().anyRequest().authenticated())
 				.formLogin(form -> form.loginPage("/login").defaultSuccessUrl("/home", true)
