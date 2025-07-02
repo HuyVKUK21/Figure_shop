@@ -6,11 +6,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping
-public class LoginController {
-
-	@GetMapping("/login")
-	public String loginPage() {
-        return "web/login";  
+public class ForgotPasswordController {
+	@GetMapping("/forgot-password")
+	public String forgetPasswordPage() {
+        return "web/forgot-password";  
     }
-	
 }

@@ -35,13 +35,13 @@
 					<b>Chào mừng quay lại</b> <span>Chúng tôi nhớ bạn lắm rồi đấy!</span> 
 						<input type="text" placeholder="Nhập Email người dùng" />
 						<input type="password" placeholder="Mật khẩu"/>
-					<a href="/firgure-shop/forgot-password" class="forgot__btn">Quên
+					<a href="/forgot-password" class="forgot__btn">Quên
 						mật khẩu?</a>
 					<button type = "submit" class="price__button__add price__button--hover li-text">
 						<span>Đăng nhập</span>
 					</button>
 					<div class="register-btn btn">
-						Không có tài khoản, <span> <a href="/firgure-shop/sign-up">
+						Không có tài khoản, <span> <a href="/register">
 								đăng kí</a>
 						</span> nào!
 					</div>
