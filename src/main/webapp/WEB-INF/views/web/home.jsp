@@ -45,7 +45,8 @@
 					<span>Xem ngay</span>
 				</button>
 			</div>
-			<img src="${pageContext.request.contextPath}/template/web/img/home/categorybanner_1_img.webp">
+			<img
+				src="${pageContext.request.contextPath}/template/web/img/home/categorybanner_1_img.webp">
 
 
 		</div>
@@ -57,7 +58,8 @@
 					<span>Xem ngay</span>
 				</button>
 			</div>
-			<img src="${pageContext.request.contextPath}/template/web/img/home/categorybanner_2_img.webp">
+			<img
+				src="${pageContext.request.contextPath}/template/web/img/home/categorybanner_2_img.webp">
 
 		</div>
 	</div>
@@ -68,7 +70,8 @@
 			<b>Sản phẩm order</b> <span>Những sản phẩm đã hoặc sắp phát
 				hành & cần đặt trước</span>
 			<div class="cata__box order">
-				<img src="${pageContext.request.contextPath}/template/web/img/home/home_collection_1_banner.webp">
+				<img
+					src="${pageContext.request.contextPath}/template/web/img/home/home_collection_1_banner.webp">
 				<div class="cata__contain">
 					<div class="cata__navigate">
 						<div class="cata--button cata--left">
@@ -78,32 +81,7 @@
 							<i class="fa-solid fa-chevron-right"></i>
 						</div>
 					</div>
-					<div class="product">
-
-
-							<div class="product__item">
-								<a href="/firgure-shop/detail-product/${ product.product_id }">
-									<img
-									src="<c:url value = '/template/web/img/product/${product.product_image}  '/>"
-									alt="">
-								</a>
-								<div class="product__item__price">
-									<f>abc</f>
-									<span>100000</span>
-									<div class="price__button">
-										<button class="price__button__add price__button--hover">
-											<i class="fa-solid fa-cart-shopping"></i> <span>Thêm
-												vào giỏ</span>
-										</button>
-										<button class="price__button__buy price__button--hover">
-											<i class="fa-solid fa-bag-shopping"></i> <span>Mua
-												ngay</span>
-										</button>
-									</div>
-								</div>
-							</div>
-					
-					</div>
+					<div class="product"></div>
 				</div>
 			</div>
 		</div>
@@ -114,7 +92,8 @@
 			<b>Sản phẩm có sẵn</b> <span>Sản phẩm đang có sẵn, bạn có thể
 				mua ngay</span>
 			<div class="cata__box">
-				<img src="${pageContext.request.contextPath}/template/web/img/home/home_collection_1_banner.webp">
+				<img
+					src="${pageContext.request.contextPath}/template/web/img/home/home_collection_1_banner.webp">
 
 
 				<div class="cata__contain">
@@ -127,31 +106,7 @@
 						</div>
 					</div>
 					<div class="product">
-						<c:forEach items="${ tbl_product_available }" var="product1">
-							<div class="product__item">
-								<a href=""> <img
-									src="<c:url value = '/template/web/img/product/${product1.product_image}  '/>"
-									alt="">
-								</a>
-								<div class="product__item__price">
-									<f>name</f>
-									<span>${product1.product_price }</span>
-									<div class="price__button">
-										<button class="price__button__add price__button--hover">
-											<i class="fa-solid fa-cart-shopping"></i> <span>Thêm
-												vào giỏ</span>
-										</button>
-										<button class="price__button__buy price__button--hover">
-											<i class="fa-solid fa-bag-shopping"></i> <span>Mua
-												ngay</span>
-										</button>
-									</div>
-								</div>
-							</div>
-						</c:forEach>
-
-
-					</div>
+					
 				</div>
 			</div>
 		</div>
@@ -176,4 +131,46 @@
 		</div>
 	</div>
 
+<script>
+    $(document).ready(function () {
+        const contextPath = "${pageContext.request.contextPath}";
+        
+        $.ajax({
+            type: "GET",
+            url: "/api/productAll",
+            success: function (response) {
+                const products = response.data;
+                const productContainer = $(".product");
+                productContainer.empty();
+                
+                products.forEach(product => {
+                    const productHtml = `
+                        <div class="product__item">
+                            <a href="/firgure-shop/detail-product/\${product.productId}">
+      
+                                <img src="${contextPath}/template/web/img/product/\${product.productId}.jpg" alt="">
+                            </a>
+                            <div class="product__item__price">
+                                <p>\${product.productName}</p>
+                                <span>\${product.productPrice.toLocaleString('vi-VN')}₫</span>
+                                <div class="price__button">
+                                    <button class="price__button__add price__button--hover">
+                                        <i class="fa-solid fa-cart-shopping"></i> <span>Thêm vào giỏ</span>
+                                    </button>
+                                    <button class="price__button__buy price__button--hover">
+                                        <i class="fa-solid fa-bag-shopping"></i> <span>Mua ngay</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    productContainer.append(productHtml);
+                });
+            },
+            error: function (xhr) {
+                console.error("Error:", xhr);
+            }
+        });
+    });
+</script>
 </body>
