@@ -3,6 +3,8 @@ package com.example.figureshop.dto.response;
 
 import java.time.LocalDateTime;
 
+import com.example.figureshop.util.RoleEnum;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -17,11 +19,10 @@ public class UserDtoResponse {
 
 	private Long userId;
 	private String userEmail;
-	private String userPassword;
 	private String userName;
 	private int userPhone;
 	private String userAddress;
-	private String role;
+	private RoleEnum role;
 	private LocalDateTime createdAt;
 	private LocalDateTime updatedAt;
 	
@@ -29,6 +30,11 @@ public class UserDtoResponse {
 		super();
 	}
 	
+	
+
+
+
+
 	public Long getUserId() {
 		return userId;
 	}
@@ -41,12 +47,7 @@ public class UserDtoResponse {
 	public void setUserEmail(String userEmail) {
 		this.userEmail = userEmail;
 	}
-	public String getUserPassword() {
-		return userPassword;
-	}
-	public void setUserPassword(String userPassword) {
-		this.userPassword = userPassword;
-	}
+
 	public String getUserName() {
 		return userName;
 	}
@@ -65,11 +66,11 @@ public class UserDtoResponse {
 	public void setUserAddress(String userAddress) {
 		this.userAddress = userAddress;
 	}
-	public String getRole() {
+	public RoleEnum getRole() {
 		return role;
 	}
-	public void setRole(String role) {
-		this.role = role;
+	public void setRole(RoleEnum user) {
+		this.role = user;
 	}
 	public LocalDateTime getCreatedAt() {
 		return createdAt;

@@ -34,7 +34,6 @@ public class LoginApiController {
 		Authentication authentication = authenticationManager.authenticate(
 				new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), 
 						loginRequest.getPassword()));
-		SecurityContextHolder.getContext().setAuthentication(authentication);
 		String jwt = tokenProvider.generateToken((CustomUserDetails) authentication.getPrincipal());
 		return new LoginDtoResponse(jwt);
 	}
