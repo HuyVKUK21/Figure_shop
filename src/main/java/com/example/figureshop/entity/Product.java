@@ -4,9 +4,12 @@ import java.time.LocalDateTime;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
@@ -19,10 +22,15 @@ public class Product {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "product_id")
 	private Long productId;
-	@Column(name = "category_id")
-	private Long categoryId;
-	@Column(name = "brand_id")
-	private Long brandId;
+	
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "brand_id")
+	private BrandProduct brandProduct;
+	
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "category_id")
+	private CategoryProduct categoryProduct;
+
 	@Column(name = "product_name")
 	private String productName;
 	@Column(name = "product_desc")
@@ -41,6 +49,7 @@ public class Product {
 	private String productPriceLog;
 	@Column(name = "product_status")
 	private int productStatus;
+	@Column(name = "created_at")
 	private LocalDateTime createdAt;
 	@Column(name = "updated_at")
 	private LocalDateTime updatedAt;
@@ -56,17 +65,19 @@ public class Product {
 	public void setProductId(Long productId) {
 		this.productId = productId;
 	}
-	public Long getCategoryId() {
-		return categoryId;
+	
+	
+	public BrandProduct getBrandProduct() {
+		return brandProduct;
 	}
-	public void setCategoryId(Long categoryId) {
-		this.categoryId = categoryId;
+	public void setBrandProduct(BrandProduct brandProduct) {
+		this.brandProduct = brandProduct;
 	}
-	public Long getBrandId() {
-		return brandId;
+	public CategoryProduct getCategoryProduct() {
+		return categoryProduct;
 	}
-	public void setBrandId(Long brandId) {
-		this.brandId = brandId;
+	public void setCategoryProduct(CategoryProduct categoryProduct) {
+		this.categoryProduct = categoryProduct;
 	}
 	public String getProductName() {
 		return productName;

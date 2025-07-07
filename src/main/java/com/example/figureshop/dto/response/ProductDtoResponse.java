@@ -17,12 +17,26 @@ public class ProductDtoResponse {
 	private Long productId;
 	private Long categoryId;
 	private Long brandId;
+	private String brandName;
+	private String categoryName;
 	private String productName;
 	private String productDesc;
 	private String productSeries;
 	private String productSize;
 	private String productProportion;
 	private String productDate;
+	public String getBrandName() {
+		return brandName;
+	}
+	public void setBrandName(String brandName) {
+		this.brandName = brandName;
+	}
+	public String getCategoryName() {
+		return categoryName;
+	}
+	public void setCategoryName(String categoryName) {
+		this.categoryName = categoryName;
+	}
 	private int productPrice;
 	private String productPriceLog;
 	private int productStatus;

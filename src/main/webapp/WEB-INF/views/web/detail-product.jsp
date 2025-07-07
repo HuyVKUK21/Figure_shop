@@ -52,63 +52,22 @@
 		</div>
 		<div class="product__right">
 			<div class="product__info">
-
-				<f> <b>${detail_product.product_name }</b></f>
-				<f> <b> value="${detail_product.product_price}"/></b></f>
-			</div>
-
+                      
+                    </div>
 
 
 			<div class="product__buy">
-				<div class="buy__ammount li-text">
-					<button type="button" class="ammount-sub" name="decqty">-</button>
-					<input class="ammount-input" name="qty" type="tel" size="1"
-						value="1" />
-					<button type="button" class="ammount-add" name="incqty">+</button>
-				</div>
+                        <div class="buy__ammount li-text">
+                            <button class="ammount-sub">-</button>
+                            <input class="ammount-input" type="tel" value="1">
+                            <button class="ammount-add">+</button>
+                        </div>
 
-				<button type="submit"
-					class="price__button__add2 price__button--hover2  li-text">
-
-					<i class="fa-solid fa-cart-shopping"></i> <span> <a
-						href="/firgure-shop/login">Thêm vào giỏ</a>
-					</span>
-
-
-
-				</button>
-
-			</div>
-
-
-
-			<div class="product__buy">
-				<form class="btn--form" action="/firgure-shop/cart" method="POST">
-
-					<div class="buy__ammount li-text">
-						<button type="button" class="ammount-sub" name="decqty">-</button>
-						<input class="ammount-input" name="qty" type="tel" size="1"
-							value="1" />
-						<button type="button" class="ammount-add" name="incqty">+</button>
-					</div>
-
-					<input name="productID_hidden" type="hidden"
-						value="${detail_product.product_id }" /> <input type="hidden"
-						value="${detail_product.product_id }" /> <input
-						type="hidden" value="${detail_product.category.category_id }" />
-					<input type="hidden" value="${LoginInfo.user_id }" /> 
-					<input type="hidden" value="${detail_product.product_name }" /> <input
-						type="hidden" value="${LoginInfo.user_email }" />
-
-
-					<button type="submit" onclick="checkAndSubmit()"
-						class="price__button__add2 price__button--hover2  li-text">
-						<i class="fa-solid fa-cart-shopping"></i> <span>Thêm vào
-							giỏ</span>
-					</button>
-
-				</form>
-			</div>
+                        <button class="price__button__add2 price__button--hover2  li-text">
+                            <i class="fa-solid fa-cart-shopping"></i>
+                            <span>Thêm vào giỏ</span>
+                        </button>
+                    </div>
 
 
 
@@ -138,19 +97,7 @@
 			</div>
 
 			<div class="product__detail">
-				<span><b>Thông tin sản phẩm</b></span> <span
-					class="product__highlight">${detail_product.product_price_update }
-					${detail_product.product_price }</span> <span>Danh mục: ${ detail_product.category.category_name }</span>
-				<span>Hãng sản xuất: ${detail_product.brand.brand_name }</span> <span>Nhân
-					vật: ${detail_product.product_desc }</span> <span>Series:
-					${detail_product.product_series }</span> <span>Tỷ lệ:
-					${detail_product.product_proportion }</span> <span>Kích thước:
-					${detail_product.product_size }</span> <span>Ngày phát hành:
-					${detail_product.product_date }</span>
-
-
-
-
+				
 			</div>
 		</div>
 	</div>
@@ -173,67 +120,20 @@
 					alt="">
 				</a>
 
-				<div class="product__item__price">
-					<f title="{{ $relate_pro->product_name }}">${detail_product.product_name }</f>
-					<span><fmt:formatNumber
-							value="${detail_product.product_price}" type="currency"
-							currencyCode="VND" maxFractionDigits="0" pattern="#,### ₫" /></span>
-					<div class="price__button">
-						<!-- <form action="{{ URL::to('/save-cart') }}" method="POST">
-
-								<input name="productID_hidden" type="hidden"
-									value="{{ $relate_pro->product_id }}" />
-								<button class="price__button__add price__button--hover">
-									<i class="fa-solid fa-cart-shopping"></i> <span>Thêm vào
-										giỏ</span>
-								</button>
-							</form> -->
-
-
-
-						<button class="price__button__add price__button--hover">
-							<a href="/firgure-shop/login"> <i
-								class="fa-solid fa-cart-shopping"></i> <span>Thêm vào giỏ</span>
-							</a>
-						</button>
-
-
-
-
-
-
-
-
-						<form action="/firgure-shop/cart" method="POST">
-
-
-
-							<input name="productID_hidden" type="hidden"
-								value="${detail_product.product_id }" /> <input type="hidden"
-								value="${detail_product.product_id }" /> <input type="hidden"
-								value="${detail_product.category.category_id }" />
-							<input type="hidden" value="${LoginInfo.user_id }" />
-							<input type="hidden" value="${detail_product.product_name }" />
-
-							<input type="hidden" value="${LoginInfo.user_email }" />
-
-							<button class="price__button__add price__button--hover">
-								<i class="fa-solid fa-cart-shopping"></i> <span>Thêm vào
-									giỏ</span>
-							</button>
-
-
-
-
-
-							<form
-								action="/firgure-shop/detail-product/${ detail_product.product_id }">
-								<button class="price__button__buy price__button--hover">
-									<i class="fa-solid fa-bag-shopping"></i> <span>Mua ngay</span>
-								</button>
-							</form>
-					</div>
-				</div>
+				    <div class="product__item__price">
+                            <f>Genshin Impact : Fire Dance Hutao Limited</f>
+                            <span>2.400.000₫</span>
+                            <div class="price__button">
+                                <button class="price__button__add price__button--hover">
+                                    <i class="fa-solid fa-cart-shopping"></i>
+                                    <span>Thêm vào giỏ</span>
+                                </button>
+                                <button class="price__button__buy price__button--hover">
+                                    <i class="fa-solid fa-bag-shopping"></i>
+                                    <span>Mua ngay</span>
+                                </button>
+                            </div>
+                        </div>
 			</div>
 
 		</div>
@@ -243,7 +143,46 @@
 </div>
 
 
-<script src="<c:url value = '/template/web/js/product.js'/>">
+	<script src="${pageContext.request.contextPath}/template/web/js/product.js"></script>
+	<script>
+	$(document).ready(function () {	   
+	    const productId = new URLSearchParams(window.location.search).get("productId");
 	
-</script>
+	    $.ajax({
+	        url: "http://localhost:8080/api/product/detail-product",
+	        type: "GET",
+	        data: { productId: productId },
+	        success: function (response) {
+	                const product = response.data;
+	                const nameHTML = `<f><b>\${product.productName}</b></f>`;
+	                const priceHTML = `<f>\${product.productPrice.toLocaleString()}₫</f>`;	                
+	                const detailHtml = `
+	                    <span><b>Thông tin sản phẩm</b></span>
+	                    <span class="product__highlight">\${product.productPriceLog} \${product.productPrice.toLocaleString()}₫</span>
+	                    <span>Danh mục: \${product.categoryName ?? "Không rõ"}</span>
+	                    <span>Hãng sản xuất: \${product.brandName ?? "Không rõ"}</span>
+	                    <span>Nhân vật: \${product.productDesc}</span>
+	                    <span>Series: \${product.productSeries}</span>
+	                    <span>Tỷ lệ: \${product.productProportion}</span>
+	                    <span>Kích thước: \${product.productSize}</span>
+	                    <span>Ngày phát hành: \${product.productDate}</span>
+	                `;
+
+	                $(".product__detail")
+	                    .empty() 
+	                    .append(detailHtml);
+	                
+	                $(".product__info")
+	                    .empty() 
+	                    .append(nameHTML)
+	                    .append(priceHTML);
+	            
+	        },
+	        error: function (xhr) {
+	            $(".product__info").text("Không thể tải sản phẩm.");
+	        }
+	    });
+	});
+
+	</script>
 

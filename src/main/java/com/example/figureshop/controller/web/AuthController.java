@@ -15,9 +15,9 @@ public class AuthController {
 	@GetMapping("/login")
 	public String loginPage() {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//		if(CheckUserLogin.isUserLoggedIn()) {
-//			return "redirect:/user/home";
-//		}
+		if(CheckUserLogin.isUserLoggedIn()) {
+			return "redirect:/user/home";
+		}
         return "web/login";  
     }
 	
