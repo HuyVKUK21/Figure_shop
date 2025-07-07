@@ -422,6 +422,13 @@
     line-height: 20px;
 }
 
+.product__link {
+    text-decoration: none; 
+    color: inherit;         
+    display: block;          
+}
+
+
 .detail__item i {
     font-size: 6rem;
 }

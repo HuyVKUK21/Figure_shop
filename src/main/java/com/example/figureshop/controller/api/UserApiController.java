@@ -16,6 +16,7 @@ import com.example.figureshop.security.CustomUserDetails;
 @RestController
 @RequestMapping("/api")
 public class UserApiController {
+	
 	@GetMapping("/userProfile")
 	public ResponseEntity<ApiResponse<UserDtoResponse>> getCurrentUser(@AuthenticationPrincipal CustomUserDetails userDetails) {
 		UserDtoResponse user = new UserDtoResponse();

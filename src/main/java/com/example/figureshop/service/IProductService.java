@@ -6,4 +6,5 @@ import com.example.figureshop.dto.response.ProductDtoResponse;
 
 public interface IProductService {
 	List<ProductDtoResponse> getAllProducts();
+	ProductDtoResponse getDetailsProduct(Long productId);
 }

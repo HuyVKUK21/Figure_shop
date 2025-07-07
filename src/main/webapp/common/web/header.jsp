@@ -85,4 +85,59 @@
 
 	</div>
 </div>
+		<script>
+    $(document).ready(function () {             
+        $.ajax({
+            type: "GET",
+            url: "/api/userProfile",
+            success: function (response) {
+                const user = response.data;
 
+                const html = `
+                    <div class="navbar__top__acc li-text">
+                        <a href="/firgure-shop/infomation">
+                            <i class="fa-regular fa-user"></i>
+                            <span class="navbar__item-span">Xin chào: \${user.userName}</span>
+                        </a>
+                        <a href="/logout">
+                            <i class="fa-solid fa-right-from-bracket"></i>
+                            <span class="navbar__item-span">Đăng xuất</span>
+                        </a>
+                    </div>
+                    <div class="navbar__top__cart li-text">
+                        <form action="/firgure-shop/cart" method="GET">
+                            <i class="fa-solid fa-cart-shopping">
+                                <div class="count_holder"><f></f></div>
+                                <input type="hidden" name="user_id" value="${user.user_id}">
+                            </i>
+                            <button class="cartButton" type="submit">
+                                <span class="navbar__item-span">Giỏ Hàng</span>
+                            </button>
+                        </form>
+                    </div>
+                `;
+                $("#navbar-user-section").html(html);
+            },
+            error: function () {
+                const html = `
+                    <div class="navbar__top__acc li-text">
+                        <a href="/firgure-shop/login">
+                            <i class="fa-regular fa-user"></i>
+                            <span class="navbar__item-span">Đăng nhập / Đăng kí</span>
+                        </a>
+                    </div>
+                    <div class="navbar__top__cart li-text">
+                        <a href="/firgure-shop/login">
+                            <i class="fa-solid fa-cart-shopping">
+                                <div class="count_holder"><f></f></div>
+                            </i>
+                            <span class="navbar__item-span">Giỏ hàng</span>
+                        </a>
+                    </div>
+                `;
+                $("#navbar-user-section").html(html);
+            }
+        });
+    });
+    
+</script>

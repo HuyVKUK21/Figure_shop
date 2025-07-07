@@ -20,7 +20,7 @@ public class SitemeshConfig {
 	            protected void applyCustomConfiguration(SiteMeshFilterBuilder builder) {
 	                builder.setMimeTypes("text/html") 
 	                       .addDecoratorPath("/user/*", "web.jsp")
-//	                       .addDecoratorPath("/*", "/WEB-INF/decorators/web.jsp")
+	                       .addDecoratorPath("/product/*", "web.jsp") 
 	                       .addExcludedPath("/api/*"); 
 	            }
 	        });
