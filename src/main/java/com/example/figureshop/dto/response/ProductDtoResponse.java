@@ -1,6 +1,9 @@
 package com.example.figureshop.dto.response;
 
 import java.time.LocalDateTime;
+import java.util.List;
+
+import com.example.figureshop.entity.ProductImage;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -19,6 +22,24 @@ public class ProductDtoResponse {
 	private Long brandId;
 	private String brandName;
 	private String categoryName;
+	private List<ProductImage> productImage;
+	private int imageOrder;
+	
+	
+	
+
+	public List<ProductImage> getProductImage() {
+		return productImage;
+	}
+	public void setProductImage(List<ProductImage> productImage) {
+		this.productImage = productImage;
+	}
+	public int getImageOrder() {
+		return imageOrder;
+	}
+	public void setImageOrder(int imageOrder) {
+		this.imageOrder = imageOrder;
+	}
 	private String productName;
 	private String productDesc;
 	private String productSeries;

@@ -1,6 +1,9 @@
 package com.example.figureshop.entity;
 
 import java.time.LocalDateTime;
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -10,6 +13,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
@@ -30,6 +34,19 @@ public class Product {
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "category_id")
 	private CategoryProduct categoryProduct;
+
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "product")
+	@JsonManagedReference 	
+	private List<ProductImage> productImages;
+	
+	public List<ProductImage> getProductImages() {
+		return productImages;
+	}
+	
+	
+	public void setProductImages(List<ProductImage> productImages) {
+		this.productImages = productImages;
+	}
 
 	@Column(name = "product_name")
 	private String productName;

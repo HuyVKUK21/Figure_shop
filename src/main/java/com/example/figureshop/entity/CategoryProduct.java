@@ -33,6 +33,7 @@ public class CategoryProduct {
 	
 	@OneToMany(mappedBy = "categoryProduct")
 	private List<Product> products;
+	
 	public Long getCategoryId() {
 		return categoryId;
 	}
