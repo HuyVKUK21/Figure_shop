@@ -105,41 +105,11 @@
 
 <div class="related">
 	<span class="related__span">Sản phẩm liên quan</span>
-
 	<div class="cata__contain">
-
 		<div class="product2">
-
-			<div class="product__item">
-
-
-				<a
-					href="/firgure-shop/detail-product/${ detail_product.product_id }">
-					<img class="img-list li-text"
-					src="<c:url value = '/template/web/img/product/${detail_product.product_image }'/>"
-					alt="">
-				</a>
-
-				    <div class="product__item__price">
-                            <f>Genshin Impact : Fire Dance Hutao Limited</f>
-                            <span>2.400.000₫</span>
-                            <div class="price__button">
-                                <button class="price__button__add price__button--hover">
-                                    <i class="fa-solid fa-cart-shopping"></i>
-                                    <span>Thêm vào giỏ</span>
-                                </button>
-                                <button class="price__button__buy price__button--hover">
-                                    <i class="fa-solid fa-bag-shopping"></i>
-                                    <span>Mua ngay</span>
-                                </button>
-                            </div>
-                        </div>
-			</div>
-
+			
 		</div>
-
 	</div>
-
 </div>
 
 
@@ -182,6 +152,44 @@
 	            $(".product__info").text("Không thể tải sản phẩm.");
 	        }
 	    });
+	    
+	 
+	        const contextPath = "${pageContext.request.contextPath}";
+	        $.ajax({
+	            type: "GET",
+	            url: "/api/productAll",
+	            success: function (response) {
+	                const products = response.data;
+	                const productContainer = $(".product2");
+	                productContainer.empty();
+	                
+	                products.forEach(product => {
+	                    const productHtml = `
+	                        <div class="product__item">
+	                            <a href="/product/detail-product?productId=\${product.productId}"  class="product__link">
+	                                <img src="${contextPath}/template/web/img/product/\${product.productId}.jpg" alt="">
+	                            <div class="product__item__price">
+	                                <p>\${product.productName}</p>
+	                                <span>\${product.productPrice.toLocaleString('vi-VN')}₫</span>
+	                                <div class="price__button">
+	                                    <button class="price__button__add price__button--hover">
+	                                        <i class="fa-solid fa-cart-shopping"></i> <span>Thêm vào giỏ</span>
+	                                    </button>
+	                                    <button class="price__button__buy price__button--hover">
+	                                        <i class="fa-solid fa-bag-shopping"></i> <span>Mua ngay</span>
+	                                    </button>
+	                                </div>
+	                            </div>
+	                            </a>
+	                        </div>
+	                    `;
+	                    productContainer.append(productHtml);
+	                });
+	            },
+	            error: function (xhr) {
+	                console.error("Error:", xhr);
+	            }
+	        });
 	});
 
 	</script>

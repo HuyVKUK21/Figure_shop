@@ -25,6 +25,8 @@
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/template/web/fontawesome-free-6.2.0-web/css/all.css">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+<script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
 </head>
 
 <body>

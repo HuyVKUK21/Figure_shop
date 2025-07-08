@@ -221,60 +221,79 @@
 }
 
 .cata__navigate {
-    margin-top: 300px;
-    position: absolute;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    z-index: 3;
-    align-items: center;
-    padding: 0 10px;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  z-index: 3;
+  padding: 0 10px;
 }
 
 .cata--button {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background-color: transparent; 
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 40px; height: 40px;
-    border-radius: 100px;
-    background-color: white;
-    font-size: 1.8rem;
-    transition: all cubic-bezier(.09,.66,.39,.88) 0.3s;
-    scale: 0%;
-    box-shadow: 0 0 10px rgb(225, 225, 225);
+    box-shadow: none; 
+    transition: all 0.3s ease;
+    cursor: pointer;
+    scale: 0;
 }
 
 .cata__box:hover .cata--button {
-    scale: 100%;
+    scale: 1;
+    
+}
+
+
+.cata--button:hover {
+    background-color: transparent;
+    transform: scale(1.2) !important; 
+}
+
+.cata--button i,
+.button__left i,
+.button__right i,
+.swiper-button-next i,
+.swiper-button-prev i {
+    color: #000 !important; 
+    font-size: 2rem;
 }
 
 .product {
-    width: 1400px;
-    height: 650px;
-    display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    grid-gap: 20px;
-    translate: 0px;
-    transition: all cubic-bezier(.59,-0.01,.34,1) 0.5s;
-    /* background-color: red; */
+  width: 100%;
+  height: 650px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); 
+  grid-template-rows: repeat(2, 1fr);
+  gap: 20px;
+  overflow: hidden;
+  transition: transform 0.5s ease-in-out;
 }
 
 .product__item {
-    position: relative;
-    width: auto;
-    height: 320px;
-    background-color: red;
-    display: flex;
-    overflow: hidden;
+  position: relative;
+  width: 100%;
+  height: 320px;
+  display: flex;
+  overflow: hidden;
+  box-sizing: border-box;
 }
 
+
 .product__item:hover .product__item__price {
-    bottom: -60px;
+    bottom: 0px;
     background-color: rgb(255, 255, 255, 0.9);
 }
 
 .product__item:hover .price__button {
-    transform: translateY(0);
+  transform: translateY(0); 
+  opacity: 1;
 }
 
 .product__item a {
@@ -292,13 +311,16 @@
 }
 
 .product__item__price {
-    position: absolute;
-    padding: 20px 20px 0;
-    bottom: -120px;
-    width: 100%; height: 200px;
-    background-color: rgb(255, 255, 255);
-    display: flex; flex-direction: column;
-    transition: all ease-out 0.3s;
+  position: absolute;
+  padding: 15px 15px 10px;
+  bottom: 0; 
+  width: 100%;
+  box-sizing: border-box;
+  background-color: rgba(255, 255, 255, 0.9);
+  display: flex;
+  flex-direction: column;
+  transition: all ease-out 0.3s;
+  height: auto;
 }
 
 .product__item__price f {
@@ -316,16 +338,20 @@
 }
 
 .price__button {
-    transition: all ease-out 0.3s;
-    transform: translateY(30px);
-    width: 100%; height: 40px;
-    background-color: black;
-    border-radius: 10px;
-    display: flex;
-    font-size: 1.4rem;
-    align-items: center;
-    padding: 2px 2px;
+  transition: all ease-out 0.3s;
+  transform: translateY(100%); 
+  width: 100%; 
+  height: 40px;
+  background-color: black;
+  border-radius: 10px;
+  display: flex;
+  font-size: 1.4rem;
+  align-items: center;
+  padding: 2px 2px;
+  margin-top: 10px;
+  opacity: 0; 
 }
+
 
 .price__button--hover::before {
     content: '';
@@ -364,7 +390,12 @@
 }
 
 .price__button--hover span {
-    display: none;
+  display: inline-block;
+  margin: 0 2px; 
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 1.2rem;
 }
 
 .price__button--hover span, .price__button--hover i {
@@ -377,28 +408,34 @@
     color: white;
 }
 
+.price__button__add, .price__button__buy {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  box-sizing: border-box;
+  padding: 0 5px;
+  overflow: hidden;
+}
+
 .price__button__add {
-    height: 100%;
-    position: relative;
-    flex: 1.5;
-    text-align: center;
-    background-color: transparent;
-    color: white;
-    border-radius: 8px;
-    border: 0;
-    z-index: 2;
+  position: relative;
+  flex: 1.5;
+  background-color: transparent;
+  color: white;
+  border-radius: 8px;
+  border: 0;
+  z-index: 2;
 }
 
 .price__button__buy {
-    transition: all ease-out 0.1s;
-    position: relative;
-    flex: 1;
-    height: 100%;
-    color: black;
-    text-align: center;
-    background-color: white;
-    border-radius: 8px;
-    border: 0;
+  position: relative;
+  flex: 1;
+  color: black;
+  background-color: white;
+  border-radius: 8px;
+  border: 0;
+  transition: all ease-out 0.1s;
 }
 
 .detail {
@@ -428,6 +465,31 @@
     display: block;          
 }
 
+.swiper {
+  width: 100%;
+  height: 650px;
+  overflow: visible;
+}
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 20px;
+  height: 100%;
+}
+
+.swiper-button-next, .swiper-button-prev {
+  display: none;
+}
+
+.cata__navigate .cata--button {
+  z-index: 10;
+}
+
+.cata__box:hover .cata--button {
+    scale: 1;
+}
 
 .detail__item i {
     font-size: 6rem;
@@ -446,11 +508,20 @@
     font-size: 1.5rem;
 }
 
+
+.swiper-button-next::after,
+.swiper-button-prev::after {
+    color: red; 
+    font-size: 2rem; 
+}
+
+
+
 @media screen and (max-width :1250px) {
-    .product {
-        width: 1200px;
-        grid-template-columns: repeat(6, 1fr);
-    }
+   .product {
+    width: 200%;
+    grid-template-columns: repeat(6, 1fr);
+  }
 
     .cata__contain {
         width: 50%;
@@ -511,4 +582,18 @@
     .cata__box {
         height: 1200px;
     }
+}
+
+@media screen and (max-width: 1050px) {
+  .product-grid {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .product-grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(6, 1fr);
+  }
 }
