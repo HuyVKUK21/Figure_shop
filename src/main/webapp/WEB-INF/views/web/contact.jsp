@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@include file="/common/taglib.jsp"%>
   <title>Hỗ trợ khách hàng - Figurin</title>
-  <link rel="stylesheet" href="<c:url value = 'template/web/css/contact.css'/>">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/template/web/css/contact.css"/>
     <div class="directory">
             <a href="">Trang chủ</a>
             <a href="">Liên hệ</a>

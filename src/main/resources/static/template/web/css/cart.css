@@ -37,9 +37,8 @@ body {
 
 .cart__item {
     width: 100%;
-    margin-top: 20px;
+    padding-top: 26px;
     border-bottom: 1px solid rgb(219, 219, 219);
-    padding-bottom: 40px;
 }
 
 .cart__item:last-child {
@@ -54,9 +53,11 @@ body {
 
 .item__top i {
     font-size: 2rem;
+    margin-left: 20px;
 }
 
 .item__info {
+	margin-bottom: 50px;
     display: flex;
 }
 
@@ -181,18 +182,34 @@ body {
 }
 
 .price__button__add {
-    border: solid 1px var(--main-red);
-    padding: 5px 0;
-    margin-top: 20px;
-    width: 100%;
-    position: relative;
-    text-align: center;
-    background-color: var(--main-red);
-    color: white;
-    z-index: 2;
+  display: flex;
+  align-items: center;           /* Căn giữa theo chiều dọc */
+  justify-content: center;       /* Căn giữa theo chiều ngang */
+  height: 40px;                  /* Đặt chiều cao hợp lý */
+  padding: 0 16px;
+  font-size: 1.4rem;
+  font-family: 'Quicksand', sans-serif;
+  width: 100%;
+  background-color: var(--main-red);
+  color: white;
+  border: 1px solid var(--main-red);
+  border-radius: 6px;
+  position: relative;
+  overflow: hidden;
+  z-index: 2;
+  cursor: pointer;
+  box-sizing: border-box;
 }
 
-.price__button__add span {
+
+.price__button--hover span {
+  position: relative;
+  z-index: 2;
+  display: inline-block;
+  line-height: 1;   /* Giảm độ cao chữ */
+}
+
+.price__button__add a {
     font-family: 'Quicksand' !important;
 }
 

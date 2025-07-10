@@ -8,7 +8,8 @@
 			src="//theme.hstatic.net/1000160337/1000885200/14/logo.png?v=288"
 			alt=""></a>
 
-		<form style="display: contents" action="/firgure-shop/search" method="GET">
+		<form style="display: contents" action="/firgure-shop/search"
+			method="GET">
 			<div class="navbar__search li-text">
 				<input name="keywords_submit" type="text">
 				<button>
@@ -22,58 +23,56 @@
 					<span class="icon menu-icon"></span>
 				</div>
 			</button>
-			<div class="navbar__mobile">		
-					<ul>
-						<li><a class="li-text" href="/firgure-shop/trang-chu">Trang
-								chủ</a></li>
-						<li class="nav__product__mobile"><a class="li-text">Sản
-								phẩm</a>
-							<div class="product__drop__mobile">
-								<a href="/firgure-shop/product-portfolio/2">Tất cả sản phẩm</a>
-								<a
-									href="/firgure-shop/product-portfolio/${category.category_id }">${ category.category_name }</a>
+			<div class="navbar__mobile">
+				<ul>
+					<li><a class="li-text" href="/firgure-shop/trang-chu">Trang
+							chủ</a></li>
+					<li class="nav__product__mobile"><a class="li-text">Sản
+							phẩm</a>
+						<div class="product__drop__mobile">
+							<a href="/firgure-shop/product-portfolio/2">Tất cả sản phẩm</a> <a
+								href="/firgure-shop/product-portfolio/${category.category_id }">${ category.category_name }</a>
 
-							</div></li>
-						<li><a class="li-text"
-							href="https://t.me/joinchat/Gn7UwkXl5DwWH4brm8NQTA">Kết nối</a></li>
-						<li><a class="li-text" href="/firgure-shop/contact">Liên
-								lạc</a></li>
-					</ul>
+						</div></li>
+					<li><a class="li-text"
+						href="https://t.me/joinchat/Gn7UwkXl5DwWH4brm8NQTA">Kết nối</a></li>
+					<li><a class="li-text" href="/firgure-shop/contact">Liên
+							lạc</a></li>
+				</ul>
 			</div>
 
 
-				<div class="navbar__top__item__right" id="navbar-user-section">
-					
-				</div>
+			<div class="navbar__top__item__right" id="navbar-user-section">
+
+			</div>
 
 		</div>
 	</div>
 	<!-- nav - mobile -->
 	<div class="navbar__bot">
 		<ul>
-			<li><a class="li-text" href="/user/home">Trang
-					chủ</a></li>
+			<li><a class="li-text" href="/user/home">Trang chủ</a></li>
 
 			<li class="nav__product"><a class="bot__item li-text">Sản
 					phẩm</a> <i class="fa-solid fa-chevron-down arrow--down"></i>
 
 				<div class="product__drop">
 					<a href="/firgure-shop/product-portfolio/all">Tất cả sản phẩm</a>
-					
+
 				</div></li>
 
 			<li><a class="li-text"
 				href="https://t.me/joinchat/Gn7UwkXl5DwWH4brm8NQTA">Kết nối</a></li>
-			<li><a class="li-text" href="/firgure-shop/contact">Liên lạc</a></li>		
-					<li><a class="li-text" href="/spring-mvc/dashboard">Quyền
-							truy cập Admin</a></li>
-				
+			<li><a class="li-text" href="/user/contact">Liên lạc</a></li>
+			<li><a class="li-text" href="/spring-mvc/dashboard">Quyền
+					truy cập Admin</a></li>
+
 		</ul>
 
 
 	</div>
 </div>
-		<script>
+<script>
     $(document).ready(function () {             
         $.ajax({
             type: "GET",
@@ -92,17 +91,13 @@
                             <span class="navbar__item-span">Đăng xuất</span>
                         </a>
                     </div>
-                    <div class="navbar__top__cart li-text">
-                        <form action="/firgure-shop/cart" method="GET">
-                            <i class="fa-solid fa-cart-shopping">
-                                <div class="count_holder"><f></f></div>
-                                <input type="hidden" name="user_id" value="${user.user_id}">
-                            </i>
-                            <button class="cartButton" type="submit">
-                                <span class="navbar__item-span">Giỏ Hàng</span>
-                            </button>
-                        </form>
-                    </div>
+                    <a href="/user/cart" class="navbar__top__cart li-text">
+                    <i class="fa-solid fa-cart-shopping">
+                        <div class="count_holder"><f>0</f></div>
+                    </i>
+                    <span class="navbar__item-span">Giỏ hàng</span>
+                </a>
+
                 `;
                 $("#navbar-user-section").html(html);
             },

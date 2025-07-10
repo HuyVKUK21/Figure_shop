@@ -19,31 +19,12 @@
 
 		<div class="cart__product">
 
-			<div class="cart__item">
-				<div class="item__top">
-					<div class="item__info">
-						<img
-							src="asset/img/product/17Cm-Genshin-T-c-ng-Klee-Hibana-Hi-p-S-Anime-H-nh-1-7-Quy.jpg_Q90.jpg_.jpg"
-							alt="">
-						<div class="details">
-							<b>Genshin Impact Klee Summer</b>
-							<div class="buy__ammount li-text">
-								<button class="ammount-sub">-</button>
-								<input class="ammount-input" type="tel" value="1">
-								<button class="ammount-add">+</button>
-							</div>
-							<b class="price">9.800.000đ</b>
-						</div>
-					</div>
-					<i class="fa-regular fa-trash-can li-text"></i>
-				</div>
-				<div class="item__bot">
-					<b>Thành tiền :</b> <span class="total">9.800.000đ</span>
-				</div>
+			<div class="cart__item"></div>
+
+
+			<div class="item__bot">
+				
 			</div>
-
-
-
 
 
 		</div>
@@ -63,3 +44,55 @@
 		</button>
 	</div>
 </div>
+
+<script>
+	$(document).ready(function () {	   	   	 	        
+	        $.ajax({
+	            type: "GET",
+	            url: "/api/cart",
+	            success: function (response) {
+	                const products = response.data;
+	                const productContainer = $(".cart__item");
+	                const totalPriceContainer = $(".item__bot");
+	                let totalPrice = 0;
+	                productContainer.empty();
+	                
+	                products.forEach(product => {
+	                	
+	                	const image = product.productImage.find(img => img.imageOrder === 1);
+	                    const productHtml = `
+	                    	<div class="item__top">
+	    					<div class="item__info">
+	    						<img
+	    							src="${contextPath}/template/web/img/product/\${image ? image.productImage : 'default.jpg'}"
+	    							alt="">
+	    						<div class="details">
+	    							<b>\${product.productName}</b>
+	    							<div class="buy__ammount li-text">
+	    								<button class="ammount-sub">-</button>
+	    								<input class="ammount-input" type="tel" value="\${product.quantity}">
+	    								<button class="ammount-add">+</button>
+	    							</div>
+	    							<b class="price">\${product.productPrice.toLocaleString('vi-VN')}₫</b>
+	    						</div>
+	    					</div>
+	    					<i class="fa-regular fa-trash-can li-text"></i>
+	    				</div>
+	    				
+	                    `;
+	                 	totalPrice += product.productPrice * product.quantity;
+	                    productContainer.append(productHtml);
+	                });
+	                const totalPriceProduct = `
+	                    <b>Thành tiền :</b> <span class="total">\${totalPrice.toLocaleString('vi-VN')}₫</span>
+	                `;
+	                totalPriceContainer.append(totalPriceProduct);
+	                
+	            },
+	            error: function (xhr) {
+	                console.error("Error:", xhr);
+	            }
+	        });
+	});
+
+	</script>
