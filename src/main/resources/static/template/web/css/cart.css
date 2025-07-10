@@ -54,7 +54,6 @@ body {
 
 .item__top i {
     font-size: 2rem;
-    margin-left: 20px;
 }
 
 .item__info {
@@ -194,10 +193,6 @@ body {
 }
 
 .price__button__add span {
-    font-family: 'Quicksand' !important;
-  
-}
-.price__button__add a {
     font-family: 'Quicksand' !important;
 }
 

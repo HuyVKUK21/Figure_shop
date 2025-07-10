@@ -23,7 +23,7 @@
 	<div class="product">
 		<div class="product__image slider" data-speed="0">
 			<div class="image__left">
-				<img class="img-list li-text"
+				<%-- <img class="img-list li-text"
 					src="<c:url value = '/template/web/img/product/${detail_product.product_image }'/>"
 					alt=""> <img class="img-list li-text"
 					src="<c:url value = '/template/web/img/product/${detail_product.product_image2 }'/>"
@@ -31,14 +31,14 @@
 					src="<c:url value = '/template/web/img/product/${detail_product.product_image3 }'/>"
 					alt=""> <img class="img-list li-text"
 					src="<c:url value = '/template/web/img/product/${detail_product.product_image4 }'/>"
-					alt="">
+					alt=""> --%>
 			</div>
 
 
 
 			<div class="image__right">
 				<div class="image__slide">
-					<img class="img-list li-text"
+					<%-- <img class="img-list li-text"
 						src="<c:url value = '/template/web/img/product/${detail_product.product_image }'/>"
 						alt=""> <img class="img-list li-text"
 						src="<c:url value = '/template/web/img/product/${detail_product.product_image2 }'/>"
@@ -46,7 +46,7 @@
 						src="<c:url value = '/template/web/img/product/${detail_product.product_image3 }'/>"
 						alt=""> <img class="img-list li-text"
 						src="<c:url value = '/template/web/img/product/${detail_product.product_image4 }'/>"
-						alt="">
+						alt=""> --%>
 				</div>
 			</div>
 		</div>
@@ -117,7 +117,8 @@
 	<script>
 	$(document).ready(function () {	   
 	    const productId = new URLSearchParams(window.location.search).get("productId");
-	
+	    const contextPath = "${pageContext.request.contextPath}";
+	    
 	    $.ajax({
 	        url: "http://localhost:8080/api/product/detail-product",
 	        type: "GET",
@@ -153,8 +154,48 @@
 	        }
 	    });
 	    
+	    $.ajax({
+	        url: "http://localhost:8080/api/product/detail-product",
+	        type: "GET",
+	        data: { productId: productId },
+	        success: function (response) {
+	            const product = response.data;	
+	            const images = product.productImage || [];
+
+	     
+	            const sortedImages = images
+	                .sort((a, b) => a.imageOrder - b.imageOrder)
+	                .slice(0, 4);
+
+	            let imageLeftHtml = "";
+	            let imageRightHtml = "";
+	            sortedImages.forEach(img => {
+	                imageLeftHtml += `
+	                    <img class="img-list li-text"
+	                         src="${contextPath}/template/web/img/product/\${img.productImage || 'default.jpg'}"
+	                         alt="">
+	                `;
+	                imageRightHtml += `
+	                    <img src="${contextPath}/template/web/img/product/\${img.productImage || 'default.jpg'}"
+	                         alt="">
+	                `;
+	            });
+
+	            $(".image__left")
+	                .empty()
+	                .append(imageLeftHtml);
+	            $(".image__slide")
+                .empty()
+                .append(imageRightHtml);
+	        },
+	        error: function (xhr) {
+	            $(".product__info").text("Không thể tải sản phẩm.");
+	        }
+	    });
+
+	    
 	 
-	        const contextPath = "${pageContext.request.contextPath}";
+	        
 	        $.ajax({
 	            type: "GET",
 	            url: "/api/productAll",
@@ -193,4 +234,7 @@
 	});
 
 	</script>
+	
+	<script
+		src="${pageContext.request.contextPath}/template/web/js/product.js"></script>
 

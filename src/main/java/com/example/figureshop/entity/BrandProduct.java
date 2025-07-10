@@ -29,12 +29,12 @@ public class BrandProduct {
 	@Column(name = "created_at")
 	private LocalDateTime createdAt;
 	@Column(name = "updated_at")
+	private LocalDateTime updatedAt;
 	
 	@OneToMany(mappedBy = "brandProduct")
 	private List<Product> products;
 	
 	
-	private LocalDateTime updatedAt;
 	public Long getBrandId() {
 		return brandId;
 	}

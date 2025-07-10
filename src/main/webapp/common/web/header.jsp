@@ -51,7 +51,7 @@
 	<!-- nav - mobile -->
 	<div class="navbar__bot">
 		<ul>
-			<li><a class="li-text" href="/firgure-shop/trang-chu">Trang
+			<li><a class="li-text" href="/user/home">Trang
 					chủ</a></li>
 
 			<li class="nav__product"><a class="bot__item li-text">Sản

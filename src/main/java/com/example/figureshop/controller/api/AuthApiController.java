@@ -36,12 +36,13 @@ public class AuthApiController {
 	
 	
 	@PostMapping("/login")
-	public LoginDtoResponse authenticateUser(@Valid @RequestBody LoginDtoRequest loginRequest) {
+	public ResponseEntity<LoginDtoResponse> authenticateUser(@Valid @RequestBody LoginDtoRequest loginRequest) {
 		Authentication authentication = authenticationManager.authenticate(
 				new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), 
 						loginRequest.getPassword()));
 		String jwt = tokenProvider.generateToken((CustomUserDetails) authentication.getPrincipal());
-		return new LoginDtoResponse(jwt);
+		return ResponseEntity.ok(new LoginDtoResponse(jwt));
+		
 	}
 	
 	@PostMapping("/register")
