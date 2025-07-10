@@ -136,7 +136,6 @@
 	<script>
 		$(document).ready(function() {
 			const contextPath = "${pageContext.request.contextPath}";
-			
 			// Khởi tạo Swiper
 			const orderSwiper = new Swiper('.order-swiper', {
 				navigation: {
@@ -182,17 +181,17 @@
 				const container = $(containerSelector);
 				const productsToShow = products.slice(startIndex, endIndex);
 				
-				
 				for (let i = 0; i < productsToShow.length; i += 6) {
 					const slideProducts = productsToShow.slice(i, i + 6);
 					if (slideProducts.length > 0) {
-						let slideHtml = '<div class="swiper-slide"><div class="product-grid">';
-						
+						let slideHtml = '<div class="swiper-slide"><div class="product-grid">';		
 						slideProducts.forEach(product => {
+							const image = product.productImage.find(img => img.imageOrder === 1);							
 							slideHtml += `
 								<div class="product__item">
 									<a href="/product/detail-product?productId=\${product.productId}" class="product__link">
-										<img src="${contextPath}/template/web/img/product/\${product.productId}.jpg" alt="">
+									 <img src="${contextPath}/template/web/img/product/\${image ? image.productImage : 'default.jpg'}" alt="">
+										
 										<div class="product__item__price">
 											<p>\${product.productName}</p>
 											<span>\${product.productPrice.toLocaleString('vi-VN')}₫</span>
