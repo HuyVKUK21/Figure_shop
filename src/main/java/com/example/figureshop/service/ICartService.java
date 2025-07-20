@@ -11,4 +11,5 @@ public interface ICartService {
 	List<CartDtoResponse> getCart(Long userId);
 	CartDtoResponse addCart(AddCartDtoRequest addCartDtoRequest);
 	CartDtoResponse updateCart(UpdateCartDtoRequest cartDtoRequest);
+	void deleteCartItem(Long cartId);
 }

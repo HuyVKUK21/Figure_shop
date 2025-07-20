@@ -11,6 +11,7 @@ import com.example.figureshop.dto.request.AddCartDtoRequest;
 import com.example.figureshop.dto.request.UpdateCartDtoRequest;
 import com.example.figureshop.dto.response.CartDtoResponse;
 import com.example.figureshop.entity.Cart;
+import com.example.figureshop.exception.NotFoundException;
 import com.example.figureshop.mapper.CartMapper;
 import com.example.figureshop.mapper.ProductMapper;
 import com.example.figureshop.repository.CartRepository;
@@ -19,8 +20,8 @@ import com.example.figureshop.service.ICartService;
 import jakarta.transaction.Transactional;
 
 @Service
-public class CartService implements ICartService{
-	
+public class CartService implements ICartService {
+
 	@Autowired
 	private CartRepository cartRepository;
 	private ProductMapper productMapper;
@@ -30,7 +31,7 @@ public class CartService implements ICartService{
 		List<Cart> cartDtoResponses = cartRepository.findByUser_UserId(userId);
 		return cartDtoResponses.stream().map(CartMapper::toDto).collect(Collectors.toList());
 	}
-	
+
 	@Override
 	public CartDtoResponse addCart(AddCartDtoRequest addCartDtoRequest) {
 		Cart cart = CartMapper.addCartRequestDto(addCartDtoRequest);
@@ -42,13 +43,20 @@ public class CartService implements ICartService{
 	@Transactional
 	public CartDtoResponse updateCart(UpdateCartDtoRequest cartDtoRequest) {
 		cartRepository.updateQuantityCart(cartDtoRequest.getCartId(), cartDtoRequest.getQuantity());
+		Cart updatedCart = cartRepository.findById(cartDtoRequest.getCartId())
+				.orElseThrow(() -> new RuntimeException("Cart not found"));
 
-	    Cart updatedCart = cartRepository.findById(cartDtoRequest.getCartId())
-	                           .orElseThrow(() -> new RuntimeException("Cart not found"));
-
-	    return CartMapper.toDto(updatedCart);
+		return CartMapper.toDto(updatedCart);
 	}
 
+	@Override
+	@Transactional
+	public void deleteCartItem(Long cartId) {
+		if (!cartRepository.existsById(cartId)) {
+			throw new NotFoundException("Cart with id " + cartId + " not found.");
+		}
+		cartRepository.deleteById(cartId);
 
+	}
 
 }

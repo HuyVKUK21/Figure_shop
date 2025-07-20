@@ -29,6 +29,13 @@ public class ApiResponse<T> {
         return new ApiResponse<>(status, message, null);
     }
 
+    public static <T> ApiResponse<T> customResponse(int status, String message, T data) {
+        return new ApiResponse<>(status, message, data);
+    }
+    
+    public static <T> ApiResponse<T> noContent(String message) {
+        return new ApiResponse<>(HttpStatus.NO_CONTENT.value(), message, null);
+    }
 
     public int getStatus() {
         return status;

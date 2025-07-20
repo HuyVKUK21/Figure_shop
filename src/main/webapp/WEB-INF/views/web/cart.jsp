@@ -21,9 +21,7 @@
 			<div class="cart__item"></div>
 
 
-			<div class="item__bot">
-				
-			</div>
+			<div class="item__bot"></div>
 
 
 		</div>
@@ -31,7 +29,7 @@
 	<div class="cart__right">
 		<span>Thông tin đơn hàng</span>
 		<div class="right__total">
-			<b>Thành tiền :</b> <b class="order__total">0đ</b>
+			<b>Thành tiền :</b> <b class="order__total"></b>
 		</div>
 		<ul>
 			<li>Phí vận chuyển sẽ được tính ở trang thanh toán.</li>
@@ -43,84 +41,140 @@
 		</button>
 	</div>
 </div>
-
 <script>
-	$(document).ready(function () {	   	   	 	        
-	        $.ajax({
-	            type: "GET",
-	            url: "/api/cart",
-	            success: function (response) {
-	                const products = response.data;
-	                const productContainer = $(".cart__item");
-	                const totalPriceContainer = $(".item__bot");
-	                let totalPrice = 0;
-	                productContainer.empty();
-	                
-	                products.forEach(product => {
-	                	
-	                	const image = product.productImage.find(img => img.imageOrder === 1);
-	                    const productHtml = `
-	                    	<div class="item__top">
-	    					<div class="item__info">
-	    						<img
-	    							src="${contextPath}/template/web/img/product/\${image ? image.productImage : 'default.jpg'}"
-	    							alt="">
-	    						<div class="details">
-	    						 <input type="hidden" class="cart-id" value="\${product.cartId}">
-	    						
-	    							<b>\${product.productName}</b>
-	    							<div class="buy__ammount li-text">
-	    								<button class="ammount-sub">-</button>
-	    								<input class="ammount-input" type="tel" value="\${product.quantity}">
-	    								<button class="ammount-add">+</button>
-	    							</div>
-	    							<b class="price">\${product.productPrice.toLocaleString('vi-VN')}₫</b>
-	    						</div>
-	    					</div>
-	    					<i class="fa-regular fa-trash-can li-text"></i>
-	    				</div>
-	    				
-	                    `;
-	                 	totalPrice += product.productPrice * product.quantity;
-	                    productContainer.append(productHtml);
-	                });
-	                totalPriceContainer.empty();
-	                const totalPriceProduct = `
-	                    <b>Thành tiền :</b> <span class="total">\${totalPrice.toLocaleString('vi-VN')}₫</span>
-	                `;
-	                totalPriceContainer.append(totalPriceProduct);
-	                
-	            },
-	            error: function (xhr) {
-	                console.error("Error:", xhr);
-	            }
-	        });
+	const contextPath = "${pageContext.request.contextPath}";
+
+	$(document).ready(function () {
+		loadCart(); 
 	});
+
+	function loadCart() {
+		$.ajax({
+			type: "GET",
+			url: "/api/cart",
+			success: function (response) {
+				const products = response.data;
+				const productContainer = $(".cart__item");
+				const totalPriceContainer = $(".item__bot");
+				let totalPrice = 0;
+
+				productContainer.empty();
+
+				products.forEach(product => {
+					const image = product.productImage.find(img => img.imageOrder === 1);
+					const imagePath = image ? image.productImage : 'default.jpg';
+
+					const productHtml = `
+						<div class="item__top">
+							<div class="item__info">
+								<img src="\${contextPath}/template/web/img/product/\${imagePath}" alt="">
+								<div class="details">
+									<input type="hidden" class="cart-id" value="\${product.cartId}">
+									<b>\${product.productName}</b>
+									<div class="buy__ammount li-text">
+										<button class="ammount-sub">-</button>
+										<input class="ammount-input" type="tel" value="\${product.quantity}">
+										<button class="ammount-add">+</button>
+									</div>
+									<b class="price">\${product.productPrice.toLocaleString('vi-VN')}₫</b>
+								</div>
+							</div>
+							<i class="fa-regular fa-trash-can li-text"></i>
+						</div>
+					`;
+
+					totalPrice += product.productPrice * product.quantity;
+					productContainer.append(productHtml);
+				});
+
+				const formattedTotal = totalPrice.toLocaleString('vi-VN') + '₫';
+
+				totalPriceContainer.html(`
+					<b>Thành tiền :</b> <span class="total">\${formattedTotal}</span>
+				`);
+				$('.order__total').text(formattedTotal); 
+				$('.ammount').text(products.length); 
+			},
+			error: function (xhr) {
+				console.error("Lỗi khi tải giỏ hàng:", xhr);
+			}
+		});
+	}
+
 	
-	$(document).on('click', '.ammount-add', function () {
-		 const cartId = $(this).closest('.details').find('.cart-id').val();
-	    const quantity = parseInt($(".ammount-input").val()) || 1;
+	let debounceTimer = null;
 
-	    const data = {
-	    	cartId: cartId,
-	        quantity: quantity + 1
-	    };
-	    
-	    console.log(data);
+	$(document).on('click', '.ammount-add, .ammount-sub', function () {
+		const isAdd = $(this).hasClass('ammount-add');
+		const detail = $(this).closest('.details');
+		const input = detail.find('.ammount-input');
+		const cartId = detail.find('.cart-id').val();
+		const priceText = detail.find('.price').text();
+		const price = parseInt(priceText.replace(/[^\d]/g, ''));
 
-	    $.ajax({
-	        url: '/api/updatecart', 
-	        method: 'PUT',
-	        contentType: 'application/json',
-	        data: JSON.stringify(data),
-	        success: function (response) {
-	        	alert("Được nè");
-	        },
-	        error: function (xhr) {
-	        	alert("Lỗi: ", xhr);
-	        }
-	    });
+		let quantity = parseInt(input.val()) || 1;
+		quantity = isAdd ? quantity + 1 : quantity - 1;
+
+		if (quantity < 1) return;
+
+		input.val(quantity);
+
+	
+		if (debounceTimer) clearTimeout(debounceTimer);
+
+		
+		debounceTimer = setTimeout(() => {
+			$.ajax({
+				url: '/api/updatecart',
+				method: 'PUT',
+				contentType: 'application/json',
+				data: JSON.stringify({ cartId, quantity }),
+				success: function () {
+					updateTotal(); 
+				},
+				error: function (xhr) {
+					console.error("Lỗi khi cập nhật giỏ hàng:", xhr);
+				}
+			});
+		}, 500);
 	});
-	
 
-	</script>
+
+	function updateTotal() {
+		let total = 0;
+
+		$('.details').each(function () {
+			const quantity = parseInt($(this).find('.ammount-input').val()) || 1;
+			const priceText = $(this).find('.price').text();
+			const price = parseInt(priceText.replace(/[^\d]/g, ''));
+			total += quantity * price;
+		});
+
+		const formattedTotal = total.toLocaleString('vi-VN') + '₫';
+
+		$('.total').text(formattedTotal);        
+		$('.order__total').text(formattedTotal); 
+		$('.ammount').text($('.details').length); 
+	}
+	
+	$(document).on('click', '.fa-trash-can', function () {
+		const itemTop = $(this).closest('.item__top');
+		const cartId = itemTop.find('.cart-id').val();
+	
+		$.ajax({
+		    url: '/api/delete-item-cart?cartId=' + cartId,  
+		    method: 'DELETE',
+		    success: function (response) {		      
+		        loadCart(); 
+		    },
+		    error: function (xhr) {
+		        console.error("Lỗi khi xoá:", xhr);
+		    }
+		});
+
+	});
+
+
+</script>
+
+

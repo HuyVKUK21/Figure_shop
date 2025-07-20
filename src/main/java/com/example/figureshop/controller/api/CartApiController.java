@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -52,7 +53,7 @@ public class CartApiController {
 		Long userId = getCurrentUserId();
 		addCartDtoRequest.setUserId(userId);
 		CartDtoResponse cartDtoResponse = cartService.addCart(addCartDtoRequest);
-		ApiResponse<CartDtoResponse> response = ApiResponse.success(cartDtoResponse);		
+		ApiResponse<CartDtoResponse> response = ApiResponse.created("Success",cartDtoResponse);		
 		return ResponseEntity.status(HttpStatus.CREATED).body(response);
 	}
 	
@@ -60,6 +61,13 @@ public class CartApiController {
 	public ResponseEntity<ApiResponse<CartDtoResponse>> updateCart(@RequestBody UpdateCartDtoRequest cartDtoRequest) {
 		CartDtoResponse cartDtoResponse = cartService.updateCart(cartDtoRequest);
 		ApiResponse<CartDtoResponse> response = ApiResponse.success(cartDtoResponse);
+		return ResponseEntity.ok(response);
+	}
+	
+	@DeleteMapping("delete-item-cart")
+	public ResponseEntity<ApiResponse<String>> deleteItemCart(@RequestParam Long cartId) {
+		cartService.deleteCartItem(cartId);
+		ApiResponse<String> response = ApiResponse.success(null);
 		return ResponseEntity.ok(response);
 	}
 }
