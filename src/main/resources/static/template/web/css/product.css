@@ -157,7 +157,9 @@
 }
 
 
-
+.add__cart {
+  pointer-events: auto;
+}
 
 .price__button--hover2:hover {
     color: var(--main-red);

@@ -22,56 +22,28 @@
 <div class="main">
 	<div class="product">
 		<div class="product__image slider" data-speed="0">
-			<div class="image__left">
-				<%-- <img class="img-list li-text"
-					src="<c:url value = '/template/web/img/product/${detail_product.product_image }'/>"
-					alt=""> <img class="img-list li-text"
-					src="<c:url value = '/template/web/img/product/${detail_product.product_image2 }'/>"
-					alt=""> <img class="img-list li-text"
-					src="<c:url value = '/template/web/img/product/${detail_product.product_image3 }'/>"
-					alt=""> <img class="img-list li-text"
-					src="<c:url value = '/template/web/img/product/${detail_product.product_image4 }'/>"
-					alt=""> --%>
-			</div>
+			<div class="image__left"></div>
 
 
 
 			<div class="image__right">
-				<div class="image__slide">
-					<%-- <img class="img-list li-text"
-						src="<c:url value = '/template/web/img/product/${detail_product.product_image }'/>"
-						alt=""> <img class="img-list li-text"
-						src="<c:url value = '/template/web/img/product/${detail_product.product_image2 }'/>"
-						alt=""> <img class="img-list li-text"
-						src="<c:url value = '/template/web/img/product/${detail_product.product_image3 }'/>"
-						alt=""> <img class="img-list li-text"
-						src="<c:url value = '/template/web/img/product/${detail_product.product_image4 }'/>"
-						alt=""> --%>
-				</div>
+				<div class="image__slide"></div>
 			</div>
 		</div>
 		<div class="product__right">
-			<div class="product__info">
-                      
-                    </div>
-
-
+			<div class="product__info"></div>
 			<div class="product__buy">
-                        <div class="buy__ammount li-text">
-                            <button class="ammount-sub">-</button>
-                            <input class="ammount-input" type="tel" value="1">
-                            <button class="ammount-add">+</button>
-                        </div>
+				<div class="buy__ammount li-text">
+					<button class="ammount-sub">-</button>
+					<input class="ammount-input" type="tel" value="1">
+					<button class="ammount-add">+</button>
+				</div>
 
-                        <button class="price__button__add2 price__button--hover2  li-text">
-                            <i class="fa-solid fa-cart-shopping"></i>
-                            <span>Thêm vào giỏ</span>
-                        </button>
-                    </div>
+				<button class="price__button__add2 price__button--hover2  li-text">
+					<i class="fa-solid fa-cart-shopping"></i>
 
-
-
-
+				</button>
+			</div>
 
 			<div class="product__rule">
 				<div class="rule">
@@ -96,9 +68,7 @@
 				</div>
 			</div>
 
-			<div class="product__detail">
-				
-			</div>
+			<div class="product__detail"></div>
 		</div>
 	</div>
 </div>
@@ -106,15 +76,15 @@
 <div class="related">
 	<span class="related__span">Sản phẩm liên quan</span>
 	<div class="cata__contain">
-		<div class="product2">
-			
-		</div>
+		<div class="product2"></div>
 	</div>
 </div>
 
 
-	<script src="${pageContext.request.contextPath}/template/web/js/product.js"></script>
-	<script>
+<script
+	src="${pageContext.request.contextPath}/template/web/js/product.js"></script>
+<script>
+
 	$(document).ready(function () {	   
 	    const productId = new URLSearchParams(window.location.search).get("productId");
 	    const contextPath = "${pageContext.request.contextPath}";
@@ -126,10 +96,19 @@
 	        success: function (response) {
 	                const product = response.data;
 	                const nameHTML = `<f><b>\${product.productName}</b></f>`;
-	                const priceHTML = `<f>\${product.productPrice.toLocaleString()}₫</f>`;	                
+	                const priceHTML = `<f>\${product.productPrice.toLocaleString()}₫</f>`;	  
+	               
+		            const images = product.productImage || [];		  
+		            const sortedImages = images
+		                .sort((a, b) => a.imageOrder - b.imageOrder)
+		                .slice(0, 4);
+
+		            let imageLeftHtml = "";
+		            let imageRightHtml = "";
 	                const detailHtml = `
 	                    <span><b>Thông tin sản phẩm</b></span>
-	                    <span class="product__highlight">\${product.productPriceLog} \${product.productPrice.toLocaleString()}₫</span>
+	                    <span class="product__highlight">Số lượng trong kho: \${product.productStock}</span>
+	                    <span>\${product.productPriceLog} \${product.productPrice.toLocaleString()}₫</span>
 	                    <span>Danh mục: \${product.categoryName ?? "Không rõ"}</span>
 	                    <span>Hãng sản xuất: \${product.brandName ?? "Không rõ"}</span>
 	                    <span>Nhân vật: \${product.productDesc}</span>
@@ -139,37 +118,7 @@
 	                    <span>Ngày phát hành: \${product.productDate}</span>
 	                `;
 
-	                $(".product__detail")
-	                    .empty() 
-	                    .append(detailHtml);
-	                
-	                $(".product__info")
-	                    .empty() 
-	                    .append(nameHTML)
-	                    .append(priceHTML);
-	            
-	        },
-	        error: function (xhr) {
-	            $(".product__info").text("Không thể tải sản phẩm.");
-	        }
-	    });
-	    
-	    $.ajax({
-	        url: "http://localhost:8080/api/product/detail-product",
-	        type: "GET",
-	        data: { productId: productId },
-	        success: function (response) {
-	            const product = response.data;	
-	            const images = product.productImage || [];
-
-	     
-	            const sortedImages = images
-	                .sort((a, b) => a.imageOrder - b.imageOrder)
-	                .slice(0, 4);
-
-	            let imageLeftHtml = "";
-	            let imageRightHtml = "";
-	            sortedImages.forEach(img => {
+	                 sortedImages.forEach(img => {
 	                imageLeftHtml += `
 	                    <img class="img-list li-text"
 	                         src="${contextPath}/template/web/img/product/\${img.productImage || 'default.jpg'}"
@@ -180,22 +129,37 @@
 	                         alt="">
 	                `;
 	            });
-
-	            $(".image__left")
+	                $(".product__detail")
+	                    .empty() 
+	                    .append(detailHtml);
+	                
+	                $(".product__info")
+	                    .empty() 
+	                    .append(nameHTML)
+	                    .append(priceHTML);
+	                $(".image__left")
 	                .empty()
 	                .append(imageLeftHtml);
-	            $(".image__slide")
-                .empty()
-                .append(imageRightHtml);
+	                
+	            	$(".image__slide")
+	                .empty()
+	                .append(imageRightHtml);
+	                
+	                $(".price__button__add2").append(`	                      	                        
+	                            <span class = "add__cart" 
+	                            	 data-product-id="\${product.productId}"
+	                                     data-category-id="\${product.categoryId}"	                              	                            
+	                            >Thêm vào giỏ</span>
+	                    `);
+	                
+	         
 	        },
 	        error: function (xhr) {
 	            $(".product__info").text("Không thể tải sản phẩm.");
 	        }
 	    });
-
 	    
-	 
-	        
+	
 	        $.ajax({
 	            type: "GET",
 	            url: "/api/productAll",
@@ -232,9 +196,37 @@
 	            }
 	        });
 	});
+	
+	$(document).on('click', '.add__cart', function () {
+	    const productId = $(this).data('product-id');
+	    const categoryId = $(this).data('category-id');
+	    const quantity = parseInt($(".ammount-input").val()) || 1;
+
+	    const data = {
+	        productId: productId,
+	        categoryId: categoryId,
+	        quantity: quantity
+	    };
+	    
+	    console.log(data);
+
+	    $.ajax({
+	        url: '/api/addcart', 
+	        method: 'POST',
+	        contentType: 'application/json',
+	        data: JSON.stringify(data),
+	        success: function (response) {
+	        	window.location.href = '/user/cart';
+	        },
+	        error: function (xhr) {
+	        	console.error("Error:", xhr);
+	        }
+	    });
+	});
+
 
 	</script>
-	
-	<script
-		src="${pageContext.request.contextPath}/template/web/js/product.js"></script>
+
+<script
+	src="${pageContext.request.contextPath}/template/web/js/product.js"></script>
 

@@ -64,6 +64,8 @@ public class Product {
 	private int productPrice;
 	@Column(name = "product_price_log")
 	private String productPriceLog;
+	@Column(name = "product_stock")
+	private int productStock;
 	@Column(name = "product_status")
 	private int productStatus;
 	@Column(name = "created_at")
@@ -143,6 +145,12 @@ public class Product {
 	}
 	public void setProductPriceLog(String productPriceLog) {
 		this.productPriceLog = productPriceLog;
+	}
+	public int getProductStock() {
+		return productStock;
+	}
+	public void setProductStock(int productStock) {
+		this.productStock = productStock;
 	}
 	public int getProductStatus() {
 		return productStatus;

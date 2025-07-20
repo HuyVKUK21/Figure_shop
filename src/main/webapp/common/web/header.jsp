@@ -4,7 +4,7 @@
 
 <div class="navbar">
 	<div class="navbar__top">
-		<a href="/firgure-shop/trang-chu"><img class="li-text"
+		<a href="/user/home"><img class="li-text"
 			src="//theme.hstatic.net/1000160337/1000885200/14/logo.png?v=288"
 			alt=""></a>
 

@@ -1,11 +1,10 @@
-package com.example.figureshop.dto.response;
+package com.example.figureshop.dto.request;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 import com.example.figureshop.entity.ProductImage;
 
-public class CartDtoResponse {
+public class AddCartDtoRequest {
 	private Long cartId;
 	private Long categoryId;
 	private Long productId;
@@ -69,7 +68,4 @@ public class CartDtoResponse {
 	public void setProductPrice(int productPrice) {
 		this.productPrice = productPrice;
 	}
-	
-	
-	
 }

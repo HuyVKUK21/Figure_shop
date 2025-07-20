@@ -5,7 +5,6 @@
 	href="${pageContext.request.contextPath}/template/web/css/cart.css">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<script src="<c:url value = '/template/web/js/cart.js'/>"></script>
 <title>Giỏ hàng của bạn</title>
 
 <div class="title">Giỏ hàng của bạn</div>
@@ -67,6 +66,8 @@
 	    							src="${contextPath}/template/web/img/product/\${image ? image.productImage : 'default.jpg'}"
 	    							alt="">
 	    						<div class="details">
+	    						 <input type="hidden" class="cart-id" value="\${product.cartId}">
+	    						
 	    							<b>\${product.productName}</b>
 	    							<div class="buy__ammount li-text">
 	    								<button class="ammount-sub">-</button>
@@ -83,6 +84,7 @@
 	                 	totalPrice += product.productPrice * product.quantity;
 	                    productContainer.append(productHtml);
 	                });
+	                totalPriceContainer.empty();
 	                const totalPriceProduct = `
 	                    <b>Thành tiền :</b> <span class="total">\${totalPrice.toLocaleString('vi-VN')}₫</span>
 	                `;
@@ -94,5 +96,31 @@
 	            }
 	        });
 	});
+	
+	$(document).on('click', '.ammount-add', function () {
+		 const cartId = $(this).closest('.details').find('.cart-id').val();
+	    const quantity = parseInt($(".ammount-input").val()) || 1;
+
+	    const data = {
+	    	cartId: cartId,
+	        quantity: quantity + 1
+	    };
+	    
+	    console.log(data);
+
+	    $.ajax({
+	        url: '/api/updatecart', 
+	        method: 'PUT',
+	        contentType: 'application/json',
+	        data: JSON.stringify(data),
+	        success: function (response) {
+	        	alert("Được nè");
+	        },
+	        error: function (xhr) {
+	        	alert("Lỗi: ", xhr);
+	        }
+	    });
+	});
+	
 
 	</script>

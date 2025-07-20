@@ -31,10 +31,6 @@ public class UserDtoResponse {
 	}
 	
 	
-
-
-
-
 	public Long getUserId() {
 		return userId;
 	}

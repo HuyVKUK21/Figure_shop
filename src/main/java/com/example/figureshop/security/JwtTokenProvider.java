@@ -45,7 +45,6 @@ public class JwtTokenProvider {
         try {
             JwtParser parser = Jwts.parser().verifyWith(key).build();
             parser.parseSignedClaims(token); 
-            System.out.println("Test token: " + token);
             return true;
         } catch (Exception ex) {
             ex.printStackTrace(); 

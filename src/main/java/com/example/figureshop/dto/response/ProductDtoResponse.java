@@ -22,42 +22,15 @@ public class ProductDtoResponse {
 	private Long brandId;
 	private String brandName;
 	private String categoryName;
+	private int productStock;
 	private List<ProductImage> productImage;
 	private int imageOrder;
-	
-	
-	
-
-	public List<ProductImage> getProductImage() {
-		return productImage;
-	}
-	public void setProductImage(List<ProductImage> productImage) {
-		this.productImage = productImage;
-	}
-	public int getImageOrder() {
-		return imageOrder;
-	}
-	public void setImageOrder(int imageOrder) {
-		this.imageOrder = imageOrder;
-	}
 	private String productName;
 	private String productDesc;
 	private String productSeries;
 	private String productSize;
 	private String productProportion;
 	private String productDate;
-	public String getBrandName() {
-		return brandName;
-	}
-	public void setBrandName(String brandName) {
-		this.brandName = brandName;
-	}
-	public String getCategoryName() {
-		return categoryName;
-	}
-	public void setCategoryName(String categoryName) {
-		this.categoryName = categoryName;
-	}
 	private int productPrice;
 	private String productPriceLog;
 	private int productStatus;
@@ -136,5 +109,36 @@ public class ProductDtoResponse {
 		this.productStatus = productStatus;
 	}
 
+	public int getProductStock() {
+		return productStock;
+	}
+	public void setProductStock(int productStock) {
+		this.productStock = productStock;
+	}
+		
+	public String getBrandName() {
+		return brandName;
+	}
+	public void setBrandName(String brandName) {
+		this.brandName = brandName;
+	}
+	public String getCategoryName() {
+		return categoryName;
+	}
+	public void setCategoryName(String categoryName) {
+		this.categoryName = categoryName;
+	}
+	public List<ProductImage> getProductImage() {
+		return productImage;
+	}
+	public void setProductImage(List<ProductImage> productImage) {
+		this.productImage = productImage;
+	}
+	public int getImageOrder() {
+		return imageOrder;
+	}
+	public void setImageOrder(int imageOrder) {
+		this.imageOrder = imageOrder;
+	}
 	
 }
