@@ -47,13 +47,13 @@ public class SecurityConfig {
 	    http
 	        .csrf(csrf -> csrf.disable())
 	        .cors(cors -> {})
-	        .authorizeHttpRequests(auth -> auth
-	            .requestMatchers("/login", "/user/home", "/api/product/detail-product/**","/product/detail-product/**", "/api/login", "/api/register", "/register", 
-	                "/forgot-password", "/api/productAll", "/WEB-INF/**", "/template/**",
-	                "/resources/**", "/static/**", "/css/**", "/js/**")
-	            .permitAll()
-	            .anyRequest().authenticated()
-	        )
+//	        .authorizeHttpRequests(auth -> auth
+//	            .requestMatchers("/login", "/user/home", "/api/product/detail-product/**","/product/detail-product/**", "/api/login", "/api/register", "/register", 
+//	                "/forgot-password", "/api/productAll", "/WEB-INF/**", "/template/**",
+//	                "/resources/**", "/static/**", "/css/**", "/js/**")
+//	            .permitAll()
+//	            .anyRequest().authenticated()
+//	        )
 	        .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 	        .exceptionHandling(exc -> exc
 	            .authenticationEntryPoint((request, response, authException) -> {

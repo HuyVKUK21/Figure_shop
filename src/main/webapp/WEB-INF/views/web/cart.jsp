@@ -36,9 +36,11 @@
 			<li>Bạn cũng có thể nhập mã giảm giá ở trang thanh toán.</li>
 		</ul>
 
-		<button class="price__button__add price__button--hover li-text">
-			<span>Thanh toán</span>
-		</button>
+		<a href="/payment"
+			class="price__button__add price__button--hover li-text"> <span>Thanh
+				toán</span>
+		</a>
+
 	</div>
 </div>
 <script>

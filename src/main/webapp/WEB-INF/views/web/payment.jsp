@@ -19,9 +19,6 @@
 	href="${pageContext.request.contextPath}/template/web/font/Quicksand/quicksand.css">
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/template/web/fontawesome-free-6.2.0-web/css/all.css">
-
-
-
 </head>
 
 <body>
@@ -35,29 +32,15 @@
 
 				<div class="directory">
 					<a href="/firgure-shop/trang-chu">Trang chủ</a> <a
-						href="/firgure-shop/cart?user_id=${LoginInfo.user_id }">Giỏ hàng</a>
+						href="/firgure-shop/cart?user_id=${LoginInfo.user_id }">Giỏ
+						hàng</a>
 				</div>
 				<b>Thông tin giao hàng</b>
-				<c:if test="${LoginInfo.user_id ne user_id}">
 				<div class="item">
 					<i class="fa-solid fa-user"></i>
-					<div class="item__text">
-						<b>Có lỗi xảy ra (<span>Vui lòng đăng nhập đúng tài khoản để tiếp tục truy cập!</span>)
-					</div>
+					<div class="item__text"></div>
 				</div>
-				</c:if>
-				
-				
-				<c:if test="${LoginInfo.user_id eq user_id}">
-					<div class="item">
-					<i class="fa-solid fa-user"></i>
-					<div class="item__text">
-						<b>${LoginInfo.user_name } (<span>${LoginInfo.user_email }</span>)
-
-						</b> <a class="li-text" href="/firgure-shop/logout">Đăng xuất</a>
-					</div>
-				</div>
-				<form action="{{ URL::to('/save-payment-customer') }}" method="POST">
+				<form action="/" method="POST">
 					<input type="text" name="shipping_name" placeholder="Họ và tên"
 						value="${LoginInfo.user_name }"> <input type="text"
 						name="shipping_address" placeholder="Địa chỉ"
@@ -117,43 +100,96 @@
 								class="purchase li-text btn3">Thanh toán COD</button>
 						</div>
 				</form>
-				
-				</c:if>
-			
+
+
 			</div>
 
 		</div>
 
 		<div class="righty">
-			<c:forEach items="${tbl_cart }" var="cart">
-				<div class="product">
 
-					<div class="product__detail">
-						<img class="img-list li-text"
-											src="<c:url value = '/template/web/img/product/${cart.product.product_image }'/>"
-											alt=""> <span class="product__text">${cart.product.product_name }</span>
-						<span class="product-quanity">x ${cart.quantity }</span>
-					</div>
-					<div class="product__price"><fmt:formatNumber value="${cart.product.product_price}" type="currency" currencyCode="VND" maxFractionDigits="0" pattern="#,### ₫"/></div>
+			<div class="product-container">
+			
+			</div>
 
-				</div>
-			</c:forEach>
 			<div class="total">
-			<c:set var="totalPrice" value="0" />
-				<c:forEach items="${tbl_info_cart }" var="cart">
-					<c:set var="itemPrice"
-						value="${cart.product.product_price * cart.quantity}" />
-					<c:set var="totalPrice" value="${totalPrice + itemPrice}" />
-				</c:forEach>
-				<span>Tổng cộng</span> <span class="total__price"> <fmt:formatNumber value="${totalPrice}" type="currency" currencyCode="VND" maxFractionDigits="0" pattern="#,### ₫"/> </span>
+
+				<span>Tổng cộng</span> <span class="total__price"> 
+				</span>
 			</div>
 		</div>
 	</div>
 </body>
 
 </html>
-
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="<c:url value = '/template/web/js/cursor.js'/>"></script>
-
 <script src="<c:url value = '/template/web/js/responsive.js'/>"></script>
 <script src="<c:url value = '/template/web/js/purchase.js'/>"></script>
+<script>
+const contextPath = "${pageContext.request.contextPath}";
+    $(document).ready(function () {             
+        $.ajax({
+            type: "GET",
+            url: "/api/userProfile",
+            success: function (response) {
+                const user = response.data;
+                const html = `
+                	<b>\${user.userName} (<span>\${user.userEmail}</span>)</b>
+                	<a class="li-text" href="/firgure-shop/logout">Đăng xuất</a>
+                `;
+                $(".item__text").html(html);
+            },
+            error: function () {
+                const html = `
+                	<b>Vui lòng <a href = "/login">Đăng nhập</a> để tiếp tục</b>
+                `;
+                $(".item__text").html(html);
+            }
+        });
+        
+        $.ajax({
+        	type: "GET",
+        	url: "/api/cart",
+        	success: function (response) {
+        		const products = response.data;
+        		const container = $(".product-container");
+        		let totalPrice = 0;
+
+        		container.empty();
+
+        		products.forEach(product => {
+        			const image = product.productImage.find(img => img.imageOrder === 1);
+        			const imagePath = image ? image.productImage : 'default.jpg';
+        			const itemPrice = product.productPrice * product.quantity;
+        			totalPrice += itemPrice;
+
+        			const productHtml = `
+        				<div class="product">
+        					<div class="product__detail">
+        						<img class="img-list li-text"
+        							src="\${contextPath}/template/web/img/product/\${imagePath}"
+        							alt=""> 
+        						<span class="product__text">\${product.productName}</span>
+        						<span class="product-quanity">x \${product.quantity}</span>
+        					</div>
+        					<div class="product__price">
+        						\${itemPrice.toLocaleString('vi-VN')} ₫
+        					</div>
+        				</div>
+        			`;
+
+        			container.append(productHtml);
+        		});
+
+        		$(".total__price").text(totalPrice.toLocaleString('vi-VN') + ' ₫');
+        	},
+        	error: function (xhr) {
+        		console.error("Lỗi khi tải giỏ hàng:", xhr);
+        	}
+        });
+
+    });
+    
+</script>
+

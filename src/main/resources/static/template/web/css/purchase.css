@@ -129,6 +129,7 @@
 }
 
 .product {
+	margin-top: 20px;
     width: 100%;
     display: flex;
     font-size: 1.4rem;
