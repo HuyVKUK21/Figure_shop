@@ -23,6 +23,7 @@ import com.example.figureshop.entity.Cart;
 import com.example.figureshop.response.ApiResponse;
 import com.example.figureshop.security.CustomUserDetails;
 import com.example.figureshop.service.ICartService;
+import com.example.figureshop.util.AuthUtils;
 
 @RestController
 @RequestMapping("/api")
@@ -32,28 +33,20 @@ public class CartApiController {
 	private ICartService cartService;
 
 	
-	private Long getCurrentUserId() {
-	    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-	    CustomUserDetails user = (CustomUserDetails) auth.getPrincipal();	    
-	    return user.getUser().getUserId();
-	}
-	
-	
 	@GetMapping("/cart")
-	public ResponseEntity<ApiResponse<List<CartDtoResponse>>> getCart() {	
-		Long userId = getCurrentUserId();
+	public ResponseEntity<ApiResponse<List<CartDtoResponse>>> getCart() {
+		Long userId = AuthUtils.getCurrentUserId();
 		List<CartDtoResponse> cartDtoResponses = cartService.getCart(userId);
 		ApiResponse<List<CartDtoResponse>> response = ApiResponse.success(cartDtoResponses);
 		return ResponseEntity.ok(response);
 	}
 
-	
 	@PostMapping("/addcart")
 	public ResponseEntity<ApiResponse<CartDtoResponse>> addCart(@RequestBody AddCartDtoRequest addCartDtoRequest) {
-		Long userId = getCurrentUserId();
+		Long userId = AuthUtils.getCurrentUserId();
 		addCartDtoRequest.setUserId(userId);
 		CartDtoResponse cartDtoResponse = cartService.addCart(addCartDtoRequest);
-		ApiResponse<CartDtoResponse> response = ApiResponse.created("Success",cartDtoResponse);		
+		ApiResponse<CartDtoResponse> response = ApiResponse.created("Success", cartDtoResponse);
 		return ResponseEntity.status(HttpStatus.CREATED).body(response);
 	}
 	

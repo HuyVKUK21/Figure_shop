@@ -6,7 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.example.figureshop.util.CheckUserLogin;
+import com.example.figureshop.util.AuthUtils;
 
 @Controller
 @RequestMapping
@@ -15,7 +15,7 @@ public class AuthController {
 	@GetMapping("/login")
 	public String loginPage() {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		if(CheckUserLogin.isUserLoggedIn()) {
+		if(AuthUtils.isUserLoggedIn()) {
 			return "redirect:/user/home";
 		}
         return "web/login";  
