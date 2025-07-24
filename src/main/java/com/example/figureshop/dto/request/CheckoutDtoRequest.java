@@ -3,17 +3,15 @@ package com.example.figureshop.dto.request;
 import java.util.List;
 
 public class CheckoutDtoRequest {
-	private ShippingDtoRequest shippingDtoRequest;
-	
+	private Long shippingId;
 	private List<CartItemDtoRequest> items;
-	
 
-	public ShippingDtoRequest getShippingDtoRequest() {
-		return shippingDtoRequest;
+	public Long getShippingId() {
+		return shippingId;
 	}
 
-	public void setShippingDtoRequest(ShippingDtoRequest shippingDtoRequest) {
-		this.shippingDtoRequest = shippingDtoRequest;
+	public void setShippingId(Long shippingId) {
+		this.shippingId = shippingId;
 	}
 
 	public List<CartItemDtoRequest> getItems() {
@@ -23,7 +21,5 @@ public class CheckoutDtoRequest {
 	public void setItems(List<CartItemDtoRequest> items) {
 		this.items = items;
 	}
-	
-	
-	
+
 }

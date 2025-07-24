@@ -21,6 +21,7 @@ public class SitemeshConfig {
 	                builder.setMimeTypes("text/html") 
 	                       .addDecoratorPath("/user/*", "web.jsp")
 	                       .addDecoratorPath("/product/*", "web.jsp") 
+	                       .addDecoratorPath("/payment", "web.jsp") 
 	                       .addExcludedPath("/api/*"); 
 	            }
 	        });

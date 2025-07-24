@@ -17,6 +17,7 @@ import com.example.figureshop.entity.Shipping;
 import com.example.figureshop.exception.NotFoundException;
 import com.example.figureshop.mapper.OrderMapper;
 import com.example.figureshop.mapper.ShippingMapper;
+import com.example.figureshop.repository.CartRepository;
 import com.example.figureshop.repository.OrderDetailRepository;
 import com.example.figureshop.repository.OrderRepository;
 import com.example.figureshop.repository.ProductRepository;
@@ -30,8 +31,8 @@ import jakarta.transaction.Transactional;
 public class OrderService implements IOrderService {
 
 	@Autowired
-	private ShippingRepository shippingRepository;
-
+	private CartRepository cartRepository;
+	
 	@Autowired
 	private OrderRepository orderRepository;
 
@@ -44,7 +45,6 @@ public class OrderService implements IOrderService {
 	@Override
 	@Transactional
 	public OrderDtoResponse paymentItem(Long userId, CheckoutDtoRequest checkoutDtoRequest) {
-		Shipping shipping = ShippingMapper.toEntity(checkoutDtoRequest.getShippingDtoRequest());
 		Order order = new Order();
 		int totalPrice = 0;
 		
@@ -55,10 +55,8 @@ public class OrderService implements IOrderService {
 			        .orElseThrow(() -> new NotFoundException("Product not found: " + item.getProductId()));			    			   
 			totalPrice += product.getProductPrice() * item.getQuantity();
 			products.add(new ProductWithQuantity(product, item.getQuantity()));
-		}
-		shipping.setUserId(userId);
-		shippingRepository.save(shipping);		
-		Long shippingId = shipping.getShippingId();
+		}	
+		Long shippingId = checkoutDtoRequest.getShippingId();
 		order.setUserId(userId);
 		order.setShippingId(shippingId);
 		order.setPaymentId(1L);
@@ -73,6 +71,7 @@ public class OrderService implements IOrderService {
 			orderDetail.setProductSalesQuantity(product.getQuantity());
 			orderDetailRepository.save(orderDetail);
 		}
+		cartRepository.deleteByUser_UserId(userId);
 		return OrderMapper.toDto(order);
 	}
 

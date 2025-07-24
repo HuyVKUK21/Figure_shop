@@ -19,6 +19,7 @@
 	href="${pageContext.request.contextPath}/template/web/css/navbar.css">
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/template/web/css/home.css">
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/template/web/css/purchase.css">
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/template/web/font/Quicksand/quicksand.css">
 <link rel="stylesheet"

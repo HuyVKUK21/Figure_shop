@@ -22,12 +22,12 @@ import com.example.figureshop.util.AuthUtils;
 
 public class PaymentApiController {
 	@Autowired
-	private IOrderService paymentService;
+	private IOrderService orderService;
 	
 	@PostMapping("/payment")
 	public ResponseEntity<ApiResponse<OrderDtoResponse>> paymentProduct(@RequestBody CheckoutDtoRequest checkoutDtoRequest) {
 		Long userId = AuthUtils.getCurrentUserId();
-		OrderDtoResponse orderDtoResponse = paymentService.paymentItem(userId, checkoutDtoRequest);
+		OrderDtoResponse orderDtoResponse = orderService.paymentItem(userId, checkoutDtoRequest);
 		ApiResponse<OrderDtoResponse> response = ApiResponse.success(orderDtoResponse);
 		return ResponseEntity.ok(response);
 	}

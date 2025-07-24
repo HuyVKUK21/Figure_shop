@@ -14,6 +14,8 @@ import com.example.figureshop.entity.User;
 public interface CartRepository extends JpaRepository<Cart, Long>{
 	List<Cart> findByUser_UserId(Long userId);
 	
+	void deleteByUser_UserId(Long userId);
+
 	@Modifying
 	@Query("UPDATE Cart c SET c.quantity = :quantity WHERE c.cartId = :cartId")
 	int updateQuantityCart(@Param("cartId") Long cartId, @Param("quantity") int qty);

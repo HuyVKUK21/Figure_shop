@@ -28,8 +28,8 @@ public class CartService implements ICartService {
 
 	@Override
 	public List<CartDtoResponse> getCart(Long userId) {
-		List<Cart> cartDtoResponses = cartRepository.findByUser_UserId(userId);
-		return cartDtoResponses.stream().map(CartMapper::toDto).collect(Collectors.toList());
+		List<Cart> cart = cartRepository.findByUser_UserId(userId);
+		return cart.stream().map(CartMapper::toDto).collect(Collectors.toList());
 	}
 
 	@Override
