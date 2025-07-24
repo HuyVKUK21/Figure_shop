@@ -2,6 +2,7 @@ package com.example.figureshop.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -74,5 +75,13 @@ public class OrderService implements IOrderService {
 		cartRepository.deleteByUser_UserId(userId);
 		return OrderMapper.toDto(order);
 	}
+
+	@Override
+	public OrderDtoResponse getInfoByOrderId(Long orderId) {
+	    Order order = orderRepository.findById(orderId)
+	        .orElseThrow(() -> new RuntimeException("Order ID not found: " + orderId));
+	    return OrderMapper.toDto(order);
+	}
+
 
 }

@@ -1,10 +1,12 @@
 package com.example.figureshop.service.impl;
 
+import java.io.UnsupportedEncodingException;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.figureshop.dto.request.OrderDtoRequest;
 import com.example.figureshop.entity.Order;
 import com.example.figureshop.entity.OrderDetail;
 import com.example.figureshop.service.IVnPayService;
@@ -18,9 +20,9 @@ public class VnPayService implements IVnPayService {
 	
 	
 	@Override
-	public String createVNPayPaymentUrl(OrderDetail orderDetail, String amount, String clientIp) {
+	public String createVNPayPaymentUrl(OrderDtoRequest orderDtoRequest, String clientIp) throws UnsupportedEncodingException {
 		// TODO Auto-generated method stub
-		return vnPayHelper.createPaymentUrl(orderDetail,amount, clientIp);
+		return vnPayHelper.createPaymentUrl(orderDtoRequest, clientIp);
 	}
 
 	@Override

@@ -3,34 +3,46 @@ package com.example.figureshop.util;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
+
+import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 public class VnPayUtils {
 
-    public static String buildQueryUrl(Map<String, String> params, String secretKey) {
-        List<String> keys = new ArrayList<>(params.keySet());
-        Collections.sort(keys);
+	public static String buildQueryUrl(Map<String, String> params, String secretKey) throws UnsupportedEncodingException {
+	    List<String> keys = new ArrayList<>(params.keySet());
+	    Collections.sort(keys);
 
-        StringBuilder hashData = new StringBuilder();
-        StringBuilder query = new StringBuilder();
-        for (String key : keys) {
-            String value = params.get(key);
-            if ((value != null) && (!value.isEmpty())) {
-                query.append(URLEncoder.encode(key, StandardCharsets.US_ASCII));
-                query.append("=");
-                query.append(URLEncoder.encode(value, StandardCharsets.US_ASCII));
-                query.append("&");
+	    StringBuilder hashData = new StringBuilder();
+	    StringBuilder query = new StringBuilder();
 
-                hashData.append(key).append("=").append(value).append("&");
-            }
-        }
+	    for (String key : keys) {
+	        String value = params.get(key);
+	        if ((value != null) && (!value.isEmpty())) {
+	            hashData.append(key).append('=').append(URLEncoder.encode(value, StandardCharsets.US_ASCII.name()))
+		        .append('&');
+	                   
+	            query.append(URLEncoder.encode(key, StandardCharsets.US_ASCII));
+	            query.append("=");
+	            query.append(URLEncoder.encode(value, StandardCharsets.US_ASCII));
+	            query.append('&');
+	          
+	        }
+	    }
+		hashData.setLength(hashData.length() - 1);
+		query.setLength(query.length() - 1);
+		
+		
+	    String secureHash = hmacSHA512(secretKey, hashData.toString());
+	    query.append("&vnp_SecureHash=").append(secureHash);
+	    System.out.println("Đây là url: " + secureHash);
+	    return query.toString();
+	}
 
-        String secureHash = hmacSHA512(secretKey, hashData.substring(0, hashData.length() - 1));
-        query.append("vnp_SecureHash=").append(secureHash);
-        return query.toString();
-    }
+
+
 
     public static boolean verifyResponse(Map<String, String> fields, String secretKey) {
         String hash = fields.remove("vnp_SecureHash");
@@ -48,6 +60,7 @@ public class VnPayUtils {
         }
 
         String secureHash = hmacSHA512(secretKey, hashData.substring(0, hashData.length() - 1));
+        System.out.println("Đây là verify: " + secureHash);
         return secureHash.equalsIgnoreCase(hash);
     }
 

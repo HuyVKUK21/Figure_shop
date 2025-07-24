@@ -7,4 +7,5 @@ import com.example.figureshop.dto.response.OrderDtoResponse;
 
 public interface IOrderService {
 	OrderDtoResponse paymentItem(Long userId, CheckoutDtoRequest checkoutDtoRequest);
+	OrderDtoResponse getInfoByOrderId(Long orderId);
 }

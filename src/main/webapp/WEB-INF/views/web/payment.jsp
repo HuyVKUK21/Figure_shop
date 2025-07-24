@@ -160,8 +160,10 @@
     	    contentType: "application/json",
     	    data: JSON.stringify(payload),
     	    success: function (res) {
-    	      alert("Đặt hàng thành công!");
-    	      window.location.href = "/user/home";
+    	    	console.log(res);
+    	      const orderId = res.data.orderId
+    	      console.log(orderId);
+    	      /* window.location.href = "/api/payment/vnpay/\${orderId}"; */
     	    },
     	    error: function (err) {
     	      console.error(err);
