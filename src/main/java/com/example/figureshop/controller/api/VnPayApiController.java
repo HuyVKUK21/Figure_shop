@@ -2,6 +2,7 @@ package com.example.figureshop.controller.api;
 
 import java.io.UnsupportedEncodingException;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +18,7 @@ import com.example.figureshop.mapper.OrderMapper;
 import com.example.figureshop.response.ApiResponse;
 import com.example.figureshop.service.IOrderService;
 import com.example.figureshop.service.IVnPayService;
+import com.example.figureshop.util.VnPayUtils;
 
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -25,18 +27,20 @@ import jakarta.servlet.http.HttpServletRequest;
 public class VnPayApiController {
 	@Autowired
 	private IVnPayService vnPayService;
-	
+
 	@Autowired
 	private IOrderService orderService;
-	
+
 	@GetMapping("/vnpay/{orderId}")
-	public ResponseEntity<ApiResponse<String>> getVNPayPaymentUrl(@PathVariable Long orderId, HttpServletRequest request) throws UnsupportedEncodingException {
-	    OrderDtoResponse orderResponse = orderService.getInfoByOrderId(orderId);
-	    OrderDtoRequest order = OrderMapper.toRequestDto(orderResponse);
-	    String ipAddr = request.getRemoteAddr();
+	public ResponseEntity<ApiResponse<String>> getVNPayPaymentUrl(@PathVariable Long orderId,
+			HttpServletRequest request) throws UnsupportedEncodingException {
+		OrderDtoResponse orderResponse = orderService.getInfoByOrderId(orderId);
+		OrderDtoRequest order = OrderMapper.toRequestDto(orderResponse);
+		String ipAddr = request.getRemoteAddr();
 		String vnpayUrl = vnPayService.createVNPayPaymentUrl(order, ipAddr);
 		ApiResponse<String> response = ApiResponse.success(vnpayUrl);
-	    return ResponseEntity.ok(response);
+		return ResponseEntity.ok(response);
 	}
+
 
 }

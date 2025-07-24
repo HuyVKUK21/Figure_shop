@@ -21,12 +21,11 @@ public class VnPayService implements IVnPayService {
 	
 	@Override
 	public String createVNPayPaymentUrl(OrderDtoRequest orderDtoRequest, String clientIp) throws UnsupportedEncodingException {
-		// TODO Auto-generated method stub
 		return vnPayHelper.createPaymentUrl(orderDtoRequest, clientIp);
 	}
 
 	@Override
-	public boolean validatePayment(Map<String, String> params) {
+	public boolean validatePayment(Map<String, String> params) throws UnsupportedEncodingException {
 		return vnPayHelper.isValidResponse(params);
 	}
 

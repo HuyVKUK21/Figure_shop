@@ -39,15 +39,7 @@ public class Product {
 	@JsonManagedReference 	
 	private List<ProductImage> productImages;
 	
-	public List<ProductImage> getProductImages() {
-		return productImages;
-	}
 	
-	
-	public void setProductImages(List<ProductImage> productImages) {
-		this.productImages = productImages;
-	}
-
 	@Column(name = "product_name")
 	private String productName;
 	@Column(name = "product_desc")
@@ -158,6 +150,15 @@ public class Product {
 	public void setProductStatus(int productStatus) {
 		this.productStatus = productStatus;
 	}
+	public List<ProductImage> getProductImages() {
+		return productImages;
+	}
+	
+	
+	public void setProductImages(List<ProductImage> productImages) {
+		this.productImages = productImages;
+	}
+
 	public LocalDateTime getCreatedAt() {
 		return createdAt;
 	}

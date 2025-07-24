@@ -4,6 +4,8 @@ package com.example.figureshop.util;
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 
+import jakarta.servlet.http.HttpServletRequest;
+
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
@@ -37,14 +39,13 @@ public class VnPayUtils {
 		
 	    String secureHash = hmacSHA512(secretKey, hashData.toString());
 	    query.append("&vnp_SecureHash=").append(secureHash);
-	    System.out.println("Đây là url: " + secureHash);
 	    return query.toString();
 	}
 
 
 
 
-    public static boolean verifyResponse(Map<String, String> fields, String secretKey) {
+    public static boolean verifyResponse(Map<String, String> fields, String secretKey) throws UnsupportedEncodingException {
         String hash = fields.remove("vnp_SecureHash");
         fields.remove("vnp_SecureHashType");
 
@@ -55,12 +56,13 @@ public class VnPayUtils {
         for (String key : keys) {
             String value = fields.get(key);
             if ((value != null) && (!value.isEmpty())) {
-                hashData.append(key).append("=").append(value).append("&");
+            	 hashData.append(key).append('=').append(URLEncoder.encode(value, StandardCharsets.US_ASCII.name()))
+ 		        .append('&');
             }
         }
 
+        
         String secureHash = hmacSHA512(secretKey, hashData.substring(0, hashData.length() - 1));
-        System.out.println("Đây là verify: " + secureHash);
         return secureHash.equalsIgnoreCase(hash);
     }
 
@@ -78,6 +80,21 @@ public class VnPayUtils {
         } catch (Exception e) {
             throw new RuntimeException("Hashing failed", e);
         }
+    }
+    
+    public static Map<String, String> extractVNPayParams(HttpServletRequest request) {
+        Map<String, String> vnpParams = new HashMap<>();
+        Map<String, String[]> fields = request.getParameterMap();
+
+        for (Map.Entry<String, String[]> entry : fields.entrySet()) {
+            String key = entry.getKey();
+            String[] values = entry.getValue();
+            if (values.length > 0) {
+                vnpParams.put(key, values[0]);
+            }
+        }
+
+        return vnpParams;
     }
 }
 

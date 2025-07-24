@@ -9,5 +9,5 @@ import com.example.figureshop.entity.OrderDetail;
 
 public interface IVnPayService {
 	String createVNPayPaymentUrl(OrderDtoRequest orderDtoRequest, String clientIp) throws UnsupportedEncodingException;
-    boolean validatePayment(Map<String, String> params);
+    boolean validatePayment(Map<String, String> params) throws UnsupportedEncodingException;
 }

@@ -136,6 +136,7 @@
     });
     
     function submitPayment() {
+    	
     	  const shippingId = $("#shipping_address").val();
     	  const selectedMethod = $(".payment-choice.selected").data("method");
 
@@ -149,27 +150,39 @@
     	    return;
     	  }
 
+    	  const button = $(".btn-pay");
+    	  button.prop("disabled", true);
+    	  
     	  const payload = {
     	    shippingId: parseInt(shippingId),
     	    items: cartItems
     	  };
 
-    	  $.ajax({
-    	    url: "/api/payment",
-    	    type: "POST",
-    	    contentType: "application/json",
-    	    data: JSON.stringify(payload),
-    	    success: function (res) {
-    	    	console.log(res);
-    	      const orderId = res.data.orderId
-    	      console.log(orderId);
-    	      /* window.location.href = "/api/payment/vnpay/\${orderId}"; */
-    	    },
-    	    error: function (err) {
-    	      console.error(err);
-    	    }
-    	  });
-    	}
+	    	  $.ajax({
+	    	    url: "/api/payment",
+	    	    type: "POST",
+	    	    contentType: "application/json",
+	    	    data: JSON.stringify(payload),
+	    	    success: function (res) {
+	    	      const orderId = res.data.orderId;
+	    	      $.ajax({
+	    	          url: `/api/payment/vnpay/\${orderId}`,
+	    	          type: "GET",
+	    	          success: function (response) {
+	    	            const vnpayUrl = response.data;	    	           	               	            
+	    	             	window.location.href = vnpayUrl; 	    	          
+	    	          },
+	    	          error: function (err2) {
+	    	            console.error(err2);
+	    	          }
+	    	        });
+	 
+	    	    },
+	    	    error: function (err) {
+	    	      
+	    	    }
+	    	  });
+	    	}
 
   </script>
 </body>

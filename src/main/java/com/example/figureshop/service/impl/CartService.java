@@ -59,4 +59,10 @@ public class CartService implements ICartService {
 
 	}
 
+	@Override
+	@Transactional
+	public void deleteCartByUserId(Long userId) {
+		cartRepository.deleteByUser_UserId(userId);		
+	}
+
 }

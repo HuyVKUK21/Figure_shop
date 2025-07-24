@@ -16,6 +16,8 @@ import com.example.figureshop.dto.request.OrderDtoRequest;
 import com.example.figureshop.entity.Order;
 import com.example.figureshop.entity.OrderDetail;
 
+import jakarta.servlet.http.HttpServletRequest;
+
 @Component
 public class VnPayHelper {
 	@Value("${vnpay.tmnCode}")
@@ -57,11 +59,28 @@ public class VnPayHelper {
 		vnpParams.put("vnp_ExpireDate", vnp_ExpireDate);
 
 		String queryUrl = VnPayUtils.buildQueryUrl(vnpParams, vnpHashSecret);
+	
 		return vnpPayUrl + "?" + queryUrl;
 
 	}
 
-	public boolean isValidResponse(Map<String, String> params) {
+	public boolean isValidResponse(Map<String, String> params) throws UnsupportedEncodingException {
 		return VnPayUtils.verifyResponse(params, vnpHashSecret);
+	}
+
+	public Map<String, String> getParamVnPay(HttpServletRequest request) {
+		Map<String, String> vnpParams = new HashMap<>();
+		Map<String, String[]> fields = request.getParameterMap();
+
+		for (Map.Entry<String, String[]> entry : fields.entrySet()) {
+			String key = entry.getKey();
+			String[] values = entry.getValue();
+			if (values.length > 0) {
+				vnpParams.put(key, values[0]);
+			}
+		}
+
+		return vnpParams;
+
 	}
 }
