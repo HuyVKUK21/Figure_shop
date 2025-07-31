@@ -39,8 +39,9 @@ public class OAuth2LoginSuccessHandler implements AuthenticationSuccessHandler {
 		String dummyPassword = UUID.randomUUID().toString();
 		Long userIdExist = userService.checkUserExist(email);
 		String jwt = "";
+		CustomUserDetails userDetails;
 		if (userIdExist != null) {
-			CustomUserDetails userDetails = (CustomUserDetails) userService.loadUserById(userIdExist);
+			userDetails = (CustomUserDetails) userService.loadUserById(userIdExist);
 			jwt = jwtTokenProvider.generateToken(userDetails);
 		} else {
 			UserDtoRequest dto = new UserDtoRequest();
@@ -50,7 +51,7 @@ public class OAuth2LoginSuccessHandler implements AuthenticationSuccessHandler {
 			dto.setUserPassword(dummyPassword);
 			dto.setUserProvider(ProviderEnum.GOOGLE);
 			UserDtoResponse userRes = userService.createUser(dto);
-			CustomUserDetails userDetails = (CustomUserDetails) userService.loadUserById(userRes.getUserId());
+			userDetails = (CustomUserDetails) userService.loadUserById(userRes.getUserId());
 			jwt = jwtTokenProvider.generateToken(userDetails);
 		}
 
