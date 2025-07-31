@@ -1,12 +1,22 @@
 package com.example.figureshop.dto.request;
 
-public class RegisterDtoRequest {
+import com.example.figureshop.enums.ProviderEnum;
+
+public class UserDtoRequest {
 	private String userName;
 	private String userPassword;
 	private String userEmail;
-	private int userPhone;
+	private String userPhone;
+	private ProviderEnum userProvider;
 	
 	
+
+	public ProviderEnum getUserProvider() {
+		return userProvider;
+	}
+	public void setUserProvider(ProviderEnum userProvider) {
+		this.userProvider = userProvider;
+	}
 	public String getUserName() {
 		return userName;
 	}
@@ -25,10 +35,10 @@ public class RegisterDtoRequest {
 	public void setUserEmail(String userEmail) {
 		this.userEmail = userEmail;
 	}
-	public int getUserPhone() {
+	public String getUserPhone() {
 		return userPhone;
 	}
-	public void setUserPhone(int userPhone) {
+	public void setUserPhone(String userPhone) {
 		this.userPhone = userPhone;
 	}
 	

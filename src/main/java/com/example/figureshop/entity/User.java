@@ -2,7 +2,8 @@ package com.example.figureshop.entity;
 
 import java.time.LocalDateTime;
 
-import com.example.figureshop.util.RoleEnum;
+import com.example.figureshop.enums.ProviderEnum;
+import com.example.figureshop.enums.RoleEnum;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -28,8 +29,11 @@ public class User {
 	private String userPassword;
 	@Column(name = "user_name")
 	private String userName;
+	@Column(name = "user_provider")
+	@Enumerated(EnumType.STRING)
+	private ProviderEnum userProvider;
 	@Column(name = "user_phone")
-	private int userPhone;
+	private String userPhone;
 	@Column(name = "user_address")
 	private String userAddress;
 	@Enumerated(EnumType.STRING)
@@ -38,71 +42,98 @@ public class User {
 	private LocalDateTime createdAt;
 	@Column(name = "updated_at")
 	private LocalDateTime updatedAt;
+
 	public User() {
 		super();
 	}
+
 	public Long getUserId() {
 		return userId;
 	}
+
 	public void setUserId(Long userId) {
 		this.userId = userId;
 	}
+
 	public String getUserEmail() {
 		return userEmail;
 	}
+
+	public ProviderEnum getUserProvider() {
+		return userProvider;
+	}
+
+	public void setUserProvider(ProviderEnum userProvider) {
+		this.userProvider = userProvider;
+	}
+
 	public void setUserEmail(String userEmail) {
 		this.userEmail = userEmail;
 	}
+
 	public String getUserPassword() {
 		return userPassword;
 	}
+
 	public void setUserPassword(String userPassword) {
 		this.userPassword = userPassword;
 	}
+
 	public String getUserName() {
 		return userName;
 	}
+
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
-	public int getUserPhone() {
+
+	public String getUserPhone() {
 		return userPhone;
 	}
-	public void setUserPhone(int userPhone) {
+
+	public void setUserPhone(String userPhone) {
 		this.userPhone = userPhone;
 	}
+
 	public String getUserAddress() {
 		return userAddress;
 	}
+
 	public void setUserAddress(String userAddress) {
 		this.userAddress = userAddress;
 	}
+
 	public RoleEnum getRole() {
 		return role;
 	}
+
 	public void setRole(RoleEnum user) {
 		this.role = user;
 	}
+
 	public LocalDateTime getCreatedAt() {
 		return createdAt;
 	}
+
 	public void setCreatedAt(LocalDateTime createdAt) {
 		this.createdAt = createdAt;
 	}
+
 	public LocalDateTime getUpdatedAt() {
 		return updatedAt;
 	}
+
 	public void setUpdatedAt(LocalDateTime updatedAt) {
 		this.updatedAt = updatedAt;
 	}
-	
+
 	@PrePersist
 	protected void onCreate() {
 		createdAt = LocalDateTime.now();
 	}
-  
+
 	@PreUpdate
 	protected void onUpdate() {
-		updatedAt = LocalDateTime.now(); 
+		updatedAt = LocalDateTime.now();
 	}
 }

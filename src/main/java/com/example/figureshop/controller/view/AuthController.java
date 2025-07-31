@@ -1,4 +1,4 @@
-package com.example.figureshop.controller.web;
+package com.example.figureshop.controller.view;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;

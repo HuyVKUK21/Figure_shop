@@ -1,4 +1,4 @@
-package com.example.figureshop.controller.web;
+package com.example.figureshop.controller.view;
 
 import java.io.UnsupportedEncodingException;
 import java.util.Map;

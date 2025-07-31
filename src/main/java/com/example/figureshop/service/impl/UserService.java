@@ -12,21 +12,22 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.example.figureshop.dto.request.RegisterDtoRequest;
+import com.example.figureshop.dto.request.UserDtoRequest;
+import com.example.figureshop.dto.response.UserDtoResponse;
 import com.example.figureshop.entity.User;
+import com.example.figureshop.enums.RoleEnum;
 import com.example.figureshop.mapper.UserMapper;
 import com.example.figureshop.repository.UserRepository;
 import com.example.figureshop.security.CustomUserDetails;
 import com.example.figureshop.service.IUserService;
-import com.example.figureshop.util.RoleEnum;
 
 @Service
 public class UserService implements IUserService, UserDetailsService {
 
 	@Autowired
 	private UserRepository userRepository;
-	
-	@Autowired 
+
+	@Autowired
 	private PasswordEncoder passwordEncoder;
 
 	@Override
@@ -46,14 +47,24 @@ public class UserService implements IUserService, UserDetailsService {
 	}
 
 	@Override
-	public void createUser(RegisterDtoRequest dto) {
+	public UserDtoResponse createUser(UserDtoRequest dto) {
 		User user = UserMapper.toEntity(dto);
 		String passwordHashed = passwordEncoder.encode(dto.getUserPassword());
 		user.setUserPassword(passwordHashed);
 		user.setRole(RoleEnum.ROLE_USER);
-		userRepository.save(user);		
+		userRepository.save(user);
+		UserDtoResponse response = UserMapper.toResponse(user);
+		return response;
 	}
 
-	
+	@Override
+	public Long checkUserExist(String email) {
+		Optional<User> userOpt = userRepository.findByUserEmail(email);
+		if (userOpt.isPresent()) {
+		    return userOpt.get().getUserId();
+		} else {
+		    return null;
+		}
+	}
 
 }

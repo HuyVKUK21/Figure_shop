@@ -1,0 +1,118 @@
+* {
+	box-sizing: border-box;
+	font-family: 'Quicksand', sans-serif;
+	margin: 0;
+	padding: 0;
+	width: 100%;
+}
+
+body {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: #fdfdfe;
+	min-height: 100vh;
+	padding: 20px;
+}
+
+.login {
+	width: 100%;
+	max-width: 520px;
+	background-color: white;
+	border-radius: 15px;
+	box-shadow: 0 0 30px rgba(168, 138, 133, 0.2);
+	padding: 40px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 20px;
+}
+
+.login__box {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 16px;
+}
+
+.login__box img {
+	width: 160px;
+	margin-bottom: 10px;
+}
+
+.login__box b {
+	font-size: 1.8rem;
+	margin-bottom: 5px;
+	text-align: center;
+}
+
+.button__register {
+	font-size: 1.1rem;
+	color: #ffffff;
+	text-align: center;
+}
+
+.title__register {
+	font-size: 1.1rem;
+	color: #444;
+	text-align: center;
+}
+
+input.regis--user, input.regis--pass, input.regis--pass2, input.regis--gmail
+	{
+	width: 100%;
+	padding: 16px 18px;
+	font-size: 1.1rem;
+	border: 1px solid #ccc;
+	border-radius: 10px;
+}
+
+input:focus {
+	outline: none;
+	box-shadow: 0 0 8px rgba(0, 123, 255, 0.2);
+}
+
+.regis--btn {
+	width: 100%;
+	background-color: #e84848;
+	color: white;
+	border: none;
+	border-radius: 10px;
+	padding: 16px 0;
+	font-size: 1.1rem;
+	font-weight: bold;
+	cursor: pointer;
+	transition: background-color 0.2s ease;
+}
+
+.regis--btn:hover {
+	background-color: #d73737;
+}
+
+.login-btn {
+	font-size: 1rem;
+	text-align: center;
+}
+
+.login-btn a {
+	color: #000;
+	text-decoration: underline;
+}
+
+/* Responsive */
+@media ( max-width : 600px) {
+	.login {
+		padding: 25px 20px;
+	}
+	.login__box img {
+		width: 120px;
+	}
+	.login__box b {
+		font-size: 1.5rem;
+	}
+	input, .regis--btn {
+		font-size: 1rem;
+		padding: 14px 16px;
+	}
+}

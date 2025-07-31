@@ -15,7 +15,7 @@
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/template/web/css/navbar.css">
 <link rel="stylesheet"
-	href="${pageContext.request.contextPath}/template/web/css/login.css">
+	href="${pageContext.request.contextPath}/template/web/css/register.css">
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/template/web/font/Quicksand/quicksand.css">
 <link rel="stylesheet"
@@ -36,7 +36,7 @@
 			<div class="login__box register__part">
 				<img src="${pageContext.request.contextPath}/template/web/img/logo.webp" alt="">
 				 <b>Bạn là người mới
-					sao?</b> <span>Tạo tài khoản để ngắm figure nào!</span> <input
+					sao?</b> <span class = "title__register">Tạo tài khoản để ngắm figure nào!</span> <input
 					class="regis--user" type="text" placeholder="Tài khoản"> <input
 					class="regis--pass" type="password" placeholder="Mật khẩu">
 				<input class="regis--pass2" type="password"
@@ -45,7 +45,7 @@
 
 				<button
 					class="price__button__add price__button--hover li-text regis--btn">
-					<span>Đăng kí</span>
+					<span class = "button__register">Đăng kí</span>
 				</button>
 
 				<div class="login-btn btn">
