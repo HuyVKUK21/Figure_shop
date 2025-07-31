@@ -59,7 +59,7 @@ public class SecurityConfig {
 						"/WEB-INF/**", "/template/**", "/resources/**", "/static/**", "/css/**", "/js/**")
 				.permitAll().anyRequest().authenticated())
 				.with(new OAuth2LoginConfigurer<HttpSecurity>(),
-						oauth2Login -> oauth2Login.loginPage("/oauth2/authorization/google")
+						oauth2Login -> oauth2Login.loginPage("/login")
 								.successHandler(oAuth2LoginSuccessHandler))
 				.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED))
 				.exceptionHandling(exc -> exc.authenticationEntryPoint((request, response, authException) -> {

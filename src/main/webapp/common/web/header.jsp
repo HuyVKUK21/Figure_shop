@@ -82,14 +82,14 @@
 
                 const html = `
                     <div class="navbar__top__acc li-text">
-                        <a href="/firgure-shop/infomation">
+                        <div class = "button__info">
                             <i class="fa-regular fa-user"></i>
                             <span class="navbar__item-span">Xin chào: \${user.userName}</span>
-                        </a>
-                        <a href="/logout">
+                        </div>
+                        <div class = "button__logout">
                             <i class="fa-solid fa-right-from-bracket"></i>
                             <span class="navbar__item-span">Đăng xuất</span>
-                        </a>
+                        </div>
                     </div>
                     <a href="/user/cart" class="navbar__top__cart li-text">
                     <i class="fa-solid fa-cart-shopping">
@@ -123,4 +123,17 @@
         });
     });
     
+    $(document).on('click', '.button__logout', function () {
+	    $.ajax({
+	        url: '/api/logout', 
+	        method: 'POST',
+	        contentType: 'application/json',
+	        success: function (response) {
+	        	window.location.href = '/user/home';
+	        },
+	        error: function (xhr) {
+	        	console.error("Error:", xhr);
+	        }
+	    });
+    });
 </script>
