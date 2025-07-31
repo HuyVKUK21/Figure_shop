@@ -60,4 +60,49 @@
 	</div>
 
 </body>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function() {
+  $('.regis--btn').on('click', function(e) {
+    e.preventDefault(); 
+
+
+    const username = $('.regis--user').val().trim();
+    const password = $('.regis--pass').val();
+    const confirmPassword = $('.regis--pass2').val();
+    const gmail = $('.regis--gmail').val().trim();
+
+    // Kiểm tra đơn giản
+    if (!username || !password || !confirmPassword || !gmail) {
+      alert("Vui lòng nhập đầy đủ thông tin!");
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      alert("Mật khẩu và xác nhận không khớp!");
+      return;
+    }
+
+   
+    $.ajax({
+      url: '/api/register',  
+      type: 'POST',
+      contentType: 'application/json',
+      data: JSON.stringify({
+        userName: username,
+        userPassword: password,
+        userEmail: gmail,
+        userProvider: "LOCAL"
+      }),
+      success: function(response) {
+        alert('Đăng ký thành công!');
+        // Optional: window.location.href = '/login';
+      },
+      error: function(xhr) {
+        alert('Đăng ký thất bại: ' + xhr.responseText);
+      }
+    });
+  });
+});
+</script>
 </html>

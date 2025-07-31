@@ -55,7 +55,7 @@ public class SecurityConfig {
 		http.csrf(csrf -> csrf.disable()).cors(cors -> {
 		}).authorizeHttpRequests(auth -> auth
 				.requestMatchers("/login", "/user/home", "/api/product/detail-product/**", "/product/detail-product/**",
-						"/api/login", "/api/register", "/register", "/forgot-password", "/api/productAll",
+						"/api/login", "/api/register", "/register", "/forgot-password", "/api/forgot-password","/reset-password", "/api/productAll",
 						"/WEB-INF/**", "/template/**", "/resources/**", "/static/**", "/css/**", "/js/**")
 				.permitAll().anyRequest().authenticated())
 				.with(new OAuth2LoginConfigurer<HttpSecurity>(),

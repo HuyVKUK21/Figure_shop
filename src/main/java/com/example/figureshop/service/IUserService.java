@@ -1,5 +1,7 @@
 package com.example.figureshop.service;
 
+import java.util.Optional;
+
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.example.figureshop.dto.request.UserDtoRequest;
@@ -10,4 +12,6 @@ public interface IUserService {
 	UserDetails loadUserById(Long userId);
 	UserDtoResponse createUser(UserDtoRequest dto);
 	Long checkUserExist(String email);
+	Optional<UserDtoResponse> findByUserEmail(String email);
+	void updatePasswordForgot(Long userId, String newPassword);
 }

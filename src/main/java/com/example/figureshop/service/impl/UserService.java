@@ -67,4 +67,21 @@ public class UserService implements IUserService, UserDetailsService {
 		}
 	}
 
+	@Override
+	public Optional<UserDtoResponse> findByUserEmail(String email) {
+		Optional<User> userOpt = userRepository.findByUserEmail(email);
+		Optional<UserDtoResponse> user = userOpt.map(UserMapper::toResponse);		
+		return user;
+	}
+
+	@Override
+	public void updatePasswordForgot(Long userId, String newPassword) {
+		Optional<User> userOpt = userRepository.findById(userId);
+		if(userOpt.isPresent()) {
+			User user = userOpt.get();
+			user.setUserPassword(newPassword);
+			userRepository.save(user);
+		}
+	}
+
 }

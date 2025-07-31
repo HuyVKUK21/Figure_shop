@@ -6,6 +6,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 
 import com.example.figureshop.security.CustomUserDetails;
 
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+
 public class AuthUtils {
 	public static Long getCurrentUserId() {
 	    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -18,5 +21,22 @@ public class AuthUtils {
 	    return authentication != null &&
 	           authentication.isAuthenticated() &&
 	           !(authentication instanceof AnonymousAuthenticationToken);
+	}
+	
+	public static String extractToken(HttpServletRequest request) {
+	    String header = request.getHeader("Authorization");
+	    if (header != null && header.startsWith("Bearer ")) {
+	        return header.substring(7);
+	    }
+
+	    if (request.getCookies() != null) {
+	        for (Cookie cookie : request.getCookies()) {
+	            if ("jwtToken".equals(cookie.getName())) {
+	                return cookie.getValue();
+	            }
+	        }
+	    }
+
+	    return null;
 	}
 }
